@@ -1,10 +1,3 @@
-CREATE TABLE IF NOT EXISTS dogs(
-    id BIGINT,
-    name TEXT,
-    breed TEXT,
-    age INT,
-    PRIMARY KEY (id)
-);
 
 CREATE TABLE IF NOT EXISTS owner(
     id BIGINT,
@@ -15,4 +8,13 @@ CREATE TABLE IF NOT EXISTS owner(
     district TEXT,
     postalCode int,
     primary key (id)
-)
+);
+CREATE TABLE IF NOT EXISTS dogs(
+       id BIGINT,
+       name TEXT,
+       breed TEXT,
+       age INT,
+       owner_id INT,
+       PRIMARY KEY (id)
+);
+ALTER TABLE dogs ADD FOREIGN KEY (owner_id) REFERENCES owner(id);

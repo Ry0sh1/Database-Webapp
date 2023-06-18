@@ -1,12 +1,8 @@
 package com.Ryoshi.DatabaseProgram.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Owner {
@@ -20,8 +16,10 @@ public class Owner {
     private String home;
     private String district;
     private int postalCode;
+    @OneToMany(mappedBy = "owner")
+    private Set<Dogs> dogs;
 
-    public Owner(long id, String first_name, String last_name, String street, String home, String district, int postalCode) {
+    public Owner(long id, String first_name, String last_name, String street, String home, String district, int postalCode, Set<Dogs> dogs) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -29,6 +27,7 @@ public class Owner {
         this.home = home;
         this.district = district;
         this.postalCode = postalCode;
+        this.dogs = dogs;
 
         /*
         first_name
@@ -100,4 +99,11 @@ public class Owner {
         this.postalCode = postalCode;
     }
 
+    public Set<Dogs> getDogs() {
+        return dogs;
+    }
+
+    public void setDogs(Set<Dogs> dogs) {
+        this.dogs = dogs;
+    }
 }

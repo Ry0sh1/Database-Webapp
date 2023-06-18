@@ -13,22 +13,24 @@ import org.springframework.web.bind.annotation.*;
 public class DogController {
 
     private final DogRepository dogRepository;
+    private final OwnerRepository ownerRepository;
 
-    public DogController(DogRepository dogRepository) {
+    public DogController(DogRepository dogRepository, OwnerRepository ownerRepository) {
         this.dogRepository = dogRepository;
+        this.ownerRepository = ownerRepository;
     }
 
     @GetMapping("/signup")
-    public String showSignUpForm(Dogs dogs) {
-        return "add-dogs";
+    public String showSignUpForm(Dogs dogs, Model model) {
+        model.addAttribute("owner", ownerRepository.findAll());
+        return "dogs/add-dogs";
     }
 
     @PostMapping("/addDogs")
     public String addDogs(@Valid Dogs dogs, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "add-dogs";
+            return "dogs/add-dogs";
         }
-
         dogRepository.save(dogs);
         return "redirect:/index";
     }
@@ -38,8 +40,9 @@ public class DogController {
         Dogs dogs = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Dog Id:" + id));
 
+        model.addAttribute("owner", ownerRepository.findAll());
         model.addAttribute("dogs", dogs);
-        return "update-dogs";
+        return "dogs/update-dogs";
     }
 
     @PostMapping("/update/{id}")
@@ -47,7 +50,7 @@ public class DogController {
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             dogs.setId(id);
-            return "update-dogs";
+            return "dogs/update-dogs";
         }
 
         dogRepository.save(dogs);

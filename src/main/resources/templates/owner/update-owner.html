@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Udate Owner</title>
+  <link rel="stylesheet" href="/addDogs.css">
+</head>
+<body>
+<form action="#" method="post" th:object="${owner}" th:action="@{/updateOwner/{id}(id=${owner.id})}">
+  <div class="field">
+    <label for="first_name">First Name:</label>
+    <input type="text" th:field="*{first_name}" id="first_name" placeholder="First Name" required>
+  </div>
+  <div class="field">
+    <label for="last_name">Last Name:</label>
+    <input th:field="*{last_name}" id="last_name" placeholder="Last Name" type="text" required>
+  </div>
+  <div class="field">
+    <label for="street">Street:</label>
+    <input id="street" placeholder="Street" type="text" th:field="*{street}">
+  </div>
+  <div class="field">
+    <label for="home">Home:</label>
+    <input id="home" placeholder="Home" type="text" th:field="*{home}">
+  </div>
+  <div class="field">
+    <label for="district">District:</label>
+    <input id="district" placeholder="District" type="text" th:field="*{district}">
+  </div>
+  <div class="field">
+    <label for="postalCode">Postal Code:</label>
+    <input id="postalCode" placeholder="Postal Code" th:field="*{postalCode}" type="text">
+  </div>
+  <input type="submit">
+</form>
+</body>
+</html>

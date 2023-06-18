@@ -6,61 +6,71 @@
   <link rel="stylesheet" href="/index.css">
 </head>
 <body>
-  <div th:switch="${dogs}">
-    <h2 th:case="null">No Dogs yet!</h2>
-    <div th:case="*">
-      <h2>Dogs</h2>
-      <table>
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Breed</th>
-          <th>Age</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="dogs : ${dogs}">
-          <td th:text="${dogs.name}"></td>
-          <td th:text="${dogs.breed}"></td>
-          <td th:text="${dogs.age}"></td>
-          <td><a th:href="@{/edit/{id}(id=${dogs.id})}">Edit</a></td>
-          <td><a th:href="@{/delete/{id}(id=${dogs.id})}">Delete</a></td>
-        </tr>
-        </tbody>
-      </table>
+  <div class="content">
+    <div th:switch="${dogs}">
+      <h2 th:case="null">No Dogs yet!</h2>
+      <div th:case="*">
+        <h2>Dogs</h2>
+        <table cellspacing="0">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Breed</th>
+            <th>Age</th>
+            <th>Owner</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="dogs : ${dogs}">
+            <td th:text="${dogs.name}"></td>
+            <td th:text="${dogs.breed}"></td>
+            <td th:text="${dogs.age}"></td>
+            <td th:text="${dogs.owner.getFirst_name()}"></td>
+            <td><a th:href="@{/edit/{id}(id=${dogs.id})}">Edit</a></td>
+            <td><a th:href="@{/delete/{id}(id=${dogs.id})}">Delete</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a href="/signup">Add a new Dog</a></p>
     </div>
-    <p><a href="/signup">Add a new Dog</a></p>
-  </div>
-  <div th:switch="${owner}">
-    <h2 th:case="null">No Owner yet!</h2>
-    <div th:case="*">
-      <h2>Owner</h2>
-      <table>
-        <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Street</th>
-          <th>Home</th>
-          <th>District</th>
-          <th>Postal Code</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="owner : ${owner}">
-          <td th:text="${owner.first_name}"></td>
-          <td th:text="${owner.last_name}"></td>
-          <td th:text="${owner.street}"></td>
-          <td th:text="${owner.home}"></td>
-          <td th:text="${owner.district}"></td>
-          <td th:text="${owner.postalCode}"></td>
-        </tr>
-        </tbody>
-      </table>
+    <div th:switch="${owner}">
+      <h2 th:case="null">No Owner yet!</h2>
+      <div th:case="*">
+        <h2>Owner</h2>
+        <table cellspacing="0">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Street</th>
+            <th>Home</th>
+            <th>District</th>
+            <th>Postal Code</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="owner : ${owner}">
+            <td th:text="${owner.id}"></td>
+            <td th:text="${owner.first_name}"></td>
+            <td th:text="${owner.last_name}"></td>
+            <td th:text="${owner.street}"></td>
+            <td th:text="${owner.home}"></td>
+            <td th:text="${owner.district}"></td>
+            <td th:text="${owner.postalCode}"></td>
+            <td><a th:href="@{/updateOwner/{id}(id=${owner.id})}">Edit</a></td>
+            <td><a th:href="@{/deleteOwner/{id}(id=${owner.id})}">Delete</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a href="/newOwner">Add a new Owner</a></p>
     </div>
-    <p><a href="/newOwner">Add a new Owner</a></p>
   </div>
 </body>
 </html>

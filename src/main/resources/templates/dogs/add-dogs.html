@@ -28,6 +28,13 @@
         <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
       </div>
     </div>
+    <div class="field" th:switch="${owner}">
+      <label for="owner">Owner</label>
+      <h2 th:case="null">No Owners yet!</h2>
+      <select id="owner" th:case="*" th:field="*{owner}">
+        <option th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
+      </select>
+    </div>
     <input type="submit" value="Add Dog">
   </form>
 </body>

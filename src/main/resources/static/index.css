@@ -1,5 +1,17 @@
-body{
+.content{
   display: flex;
-  justify-content: space-between;
-  width: 800px;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  gap: 100px;
+}
+th, td{
+  padding: 22px;
+  border: black solid 1px;
+}
+h2{
+  padding: 22px;
+}
+p{
+  padding: 22px;
 }

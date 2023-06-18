@@ -1,9 +1,6 @@
 package com.Ryoshi.DatabaseProgram.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -21,12 +18,16 @@ public class Dogs {
     @Positive
     @Max(50)
     private int age;
+    @ManyToOne
 
-    public Dogs(long id, String name, String breed, int age) {
+    private Owner owner;
+
+    public Dogs(long id, String name, String breed, int age, Owner owner) {
         this.id = id;
         this.name = name;
         this.breed = breed;
         this.age = age;
+        this.owner = owner;
     }
 
     public Dogs() {
@@ -63,4 +64,13 @@ public class Dogs {
     public void setAge(int age) {
         this.age = age;
     }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
 }

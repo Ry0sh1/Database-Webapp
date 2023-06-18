@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="/addDogs.css">
+</head>
+<body>
+  <form action="#" th:action="@{/update/{id}(id=${dogs.id})}" th:object="${dogs}" method="post">
+    <div class="field">
+      <label for="name">Name</label>
+      <div class="input-field">
+        <input type="text" th:field="*{name}" id="name" placeholder="Name">
+        <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="breed">Breed</label>
+      <div class="input-field">
+        <input type="text" th:field="*{breed}" id="breed" placeholder="Breed">
+        <span class="error" th:if="${#fields.hasErrors('breed')}" th:errors="*{breed}"></span>
+      </div>
+    </div>
+    <div class="field">
+      <label for="age">Age</label>
+      <div class="input-field">
+        <input type="number" th:field="*{age}" id="age">
+        <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
+      </div>
+    </div>
+    <div class="field" th:switch="${owner}">
+      <label for="owner">Owner</label>
+      <h2 th:case="null">No Owners yet!</h2>
+      <select id="owner" th:case="*" th:field="*{owner}">
+        <option th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
+      </select>
+    </div>
+    <input type="submit" value="Edit Dog">
+  </form>
+</body>
+</html>
