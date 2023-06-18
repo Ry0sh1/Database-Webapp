@@ -1,0 +1,21 @@
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.field{
+  display: flex;
+  align-content: center;
+  width: 280px;
+  justify-content: space-between;
+}
+.input-field{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.error{
+  color: red;
+  font-size: 12px;
+}

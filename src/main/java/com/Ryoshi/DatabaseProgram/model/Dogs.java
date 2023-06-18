@@ -4,29 +4,32 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 @Entity
-public class Users {
+public class Dogs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank
     private String name;
+    @NotBlank
+    private String breed;
+    @Positive
+    @Max(50)
+    private int age;
 
-    @NotBlank(message = "Email is mandatory")
-    private String email;
-
-    public Users(long id, String name, String email) {
+    public Dogs(long id, String name, String breed, int age) {
         this.id = id;
         this.name = name;
-        this.email = email;
+        this.breed = breed;
+        this.age = age;
     }
 
-    public Users() {
-
+    public Dogs() {
     }
 
     public long getId() {
@@ -45,11 +48,19 @@ public class Users {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getBreed() {
+        return breed;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }
