@@ -77,5 +77,12 @@ public class DogController {
         return "redirect:/index";
     }
 
+    @GetMapping("/dogs/filter/{breed}")
+    public String getFilteredByBreed(Model model, @PathVariable String breed){
+        model.addAttribute("dogs", dogRepository.findAllByBreed(breed));
+        Set<String> t = new HashSet<>(dogRepository.getBreed());
+        model.addAttribute("breeds", t);
+        return "dogs/dogs";
+    }
 
 }

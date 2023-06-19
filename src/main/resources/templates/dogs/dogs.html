@@ -47,10 +47,11 @@
         <select id="breeds">
           <option class="small-p" th:each="breeds : ${breeds}" th:text="${breeds}" th:value="${breeds}"></option>
         </select>
-        <p><button class="add-button" onclick="">Go</button></p>
+        <p><button class="add-button" onclick="filterByBreed()">Go</button></p>
+        <p><button class="add-button" onclick="removeFilter()">RemoveFilter</button></p>
       </div>
     </div>
-    <p ><button class="add-button" onclick="addDog()">Add Dog</button></p>
+    <p><button class="add-button" onclick="addDog()">Add Dog</button></p>
   </div>
 </div>
 </body>
