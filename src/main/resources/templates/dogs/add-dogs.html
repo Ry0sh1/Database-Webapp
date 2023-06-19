@@ -5,40 +5,48 @@
   <title>Add Dogs</title>
   <link rel="stylesheet" href="/addWindow.css">
   <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/header.css">
 </head>
 <body>
+<header class="header">
+  <ul class="header-content">
+    <li><a href="/index">Home</a></li>
+    <li><a href="/dogs">Dogs</a></li>
+    <li><a href="/owner">Owner</a></li>
+  </ul>
+</header>
   <form action="#" th:action="@{/add-dogs}" th:object="${dogs}" method="post">
     <div class="field">
       <label for="name">Name</label>
       <div class="input-field">
-        <input type="text" th:field="*{name}" id="name" placeholder="Name">
+        <input class="input" type="text" th:field="*{name}" id="name" placeholder="Name">
         <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
       </div>
     </div>
     <div class="field">
       <label for="breed">Breed</label>
       <div class="input-field">
-        <input type="text" th:field="*{breed}" id="breed" placeholder="Breed">
+        <input class="input" type="text" th:field="*{breed}" id="breed" placeholder="Breed">
         <span class="error" th:if="${#fields.hasErrors('breed')}" th:errors="*{breed}"></span>
       </div>
     </div>
     <div class="field">
       <label for="age">Age</label>
       <div class="input-field">
-        <input type="number" th:field="*{age}" id="age">
+        <input class="input" type="number" th:field="*{age}" id="age">
         <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
       </div>
     </div>
-      <div class="field" th:switch="${#lists.size(owner)}">
-        <p th:case="'0'">No Owners yet!<a href="/add-owner">Add One here</a></p>
-        <div th:case="*" >
+      <div th:switch="${#lists.size(owner)}">
+        <p th:case="'0'">No Owners yet!<a href="/new-owner"> Add One here</a></p>
+        <div class="field" th:case="*" >
           <label for="owner">Owner</label>
           <select id="owner" th:field="*{owner}">
             <option th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
           </select>
         </div>
       </div>
-    <input type="submit" value="Add Dog">
+    <input class="submit" type="submit" value="Add Dog">
   </form>
 </body>
 </html>

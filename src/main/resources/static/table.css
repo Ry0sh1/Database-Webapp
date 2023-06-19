@@ -24,6 +24,7 @@ p{
   transition: all 0.15s;
   font-weight: bold;
   font-size: 18px;
+  cursor: pointer;
 }
 .add-button:hover{
   box-shadow: 0 0 10px black;

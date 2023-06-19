@@ -5,34 +5,42 @@
   <title>Title</title>
   <link rel="stylesheet" href="/addWindow.css">
   <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/header.css">
 </head>
 <body>
+<header class="header">
+  <ul class="header-content">
+    <li><a href="/index">Home</a></li>
+    <li><a href="/dogs">Dogs</a></li>
+    <li><a href="/owner">Owner</a></li>
+  </ul>
+</header>
   <form action="#" th:action="@{/add-owner}" th:object="${owner}" method="post">
     <div class="field">
       <label for="first_name">First Name:</label>
-      <input type="text" th:field="*{first_name}" id="first_name" placeholder="First Name" required>
+      <input class="input" type="text" th:field="*{first_name}" id="first_name" placeholder="First Name" required>
     </div>
     <div class="field">
       <label for="last_name">Last Name:</label>
-      <input th:field="*{last_name}" id="last_name" placeholder="Last Name" type="text" required>
+      <input class="input" th:field="*{last_name}" id="last_name" placeholder="Last Name" type="text" required>
     </div>
     <div class="field">
       <label for="street">Street:</label>
-      <input id="street" placeholder="Street" type="text" th:field="*{street}">
+      <input class="input" id="street" placeholder="Street" type="text" th:field="*{street}">
     </div>
     <div class="field">
       <label for="home">Home:</label>
-      <input id="home" placeholder="Home" type="text" th:field="*{home}">
+      <input class="input" id="home" placeholder="Home" type="text" th:field="*{home}">
     </div>
     <div class="field">
       <label for="district">District:</label>
-      <input id="district" placeholder="District" type="text" th:field="*{district}">
+      <input class="input" id="district" placeholder="District" type="text" th:field="*{district}">
     </div>
     <div class="field">
       <label for="postalCode">Postal Code:</label>
-      <input id="postalCode" placeholder="Postal Code" th:field="*{postalCode}" type="text">
+      <input class="input" id="postalCode" placeholder="Postal Code" th:field="*{postalCode}" type="text">
     </div>
-    <input type="submit">
+    <input class="submit" type="submit">
   </form>
 </body>
 </html>
