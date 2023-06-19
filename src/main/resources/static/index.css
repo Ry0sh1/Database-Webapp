@@ -1,17 +1,26 @@
-.content{
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  gap: 100px;
+h1, h2, p{
+    font-family: Arial, serif;
 }
-th, td{
-  padding: 22px;
-  border: black solid 1px;
+.big-h{
+    font-size: 28px;
+    font-weight: bold;
 }
-h2{
-  padding: 22px;
+.small-h{
+    font-size: 22px;
+    font-weight: bold;
 }
-p{
-  padding: 22px;
+.small-p{
+    font-size: 18px;
+    line-height: 24px;
+}
+.timestamp-list{
+    list-style: none;
+}
+.patches{
+    margin-left: 20px;
+    width: 1200px;
+}
+.guidelines{
+    margin-left: 20px;
+    width: 1200px;
 }

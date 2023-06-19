@@ -4,6 +4,7 @@ import com.Ryoshi.DatabaseProgram.model.Owner;
 import com.Ryoshi.DatabaseProgram.repository.DogRepository;
 import com.Ryoshi.DatabaseProgram.repository.OwnerRepository;
 import jakarta.validation.Valid;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,12 @@ public class OwnerController {
         this.dogRepository = dogRepository1;
     }
 
+    @GetMapping("/owner")
+    public String showOwner(Model model){
+        model.addAttribute("owner", ownerRepository.findAll());
+        return "/owner/owner";
+    }
+
     @GetMapping("/new-owner")
     public String newOwner(Owner owner){
         return "/owner/add-owner";
@@ -33,7 +40,7 @@ public class OwnerController {
     }
 
     @GetMapping("/update-owner/{id}")
-    public String showOwner(@PathVariable long id, Model model){
+    public String ownerById(@PathVariable long id, Model model){
         Owner owner = ownerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Owner Id:" + id));
         model.addAttribute("owner", owner);

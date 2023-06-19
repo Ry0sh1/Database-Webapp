@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Owner</title>
+  <link rel="stylesheet" href="/table.css">
+  <link rel="stylesheet" href="/header.css">
+</head>
+<body>
+<header class="header">
+  <ul class="header-content">
+    <li><a href="/index">Home</a></li>
+    <li><a href="/dogs">Dogs</a></li>
+    <li><a href="/owner">Owner</a></li>
+  </ul>
+</header>
+<div class="content">
+  <div th:switch="${#lists.size(owner)}">
+    <h2 th:case="'0'">No Owner yet!</h2>
+    <div th:case="*">
+      <h2>Owner</h2>
+      <table cellspacing="0">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Street</th>
+          <th>Home</th>
+          <th>District</th>
+          <th>Postal Code</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="owner : ${owner}">
+          <td th:text="${owner.id}"></td>
+          <td th:text="${owner.first_name}"></td>
+          <td th:text="${owner.last_name}"></td>
+          <td th:text="${owner.street}"></td>
+          <td th:text="${owner.home}"></td>
+          <td th:text="${owner.district}"></td>
+          <td th:text="${owner.postalCode}"></td>
+          <td><a th:href="@{/update-owner/{id}(id=${owner.id})}">Edit</a></td>
+          <td><a th:href="@{/delete-owner/{id}(id=${owner.id})}">Delete</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <p><a href="/new-owner"> Add a new Owner</a></p>
+  </div>
+</div>
+</body>
+</html>

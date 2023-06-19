@@ -1,0 +1,38 @@
+body{
+    padding-top: 80px;
+}
+.header{
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    height: 80px;
+    background-color: #312c2c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-content{
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header li{
+    margin: 0 24px;
+}
+.header li a{
+    font-family: Arial, serif;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.15s, opacity 0.15s;
+}
+.header li a:hover{
+    color: #008cff;
+}
+.header li a:active{
+    opacity: 0.7;
+}

@@ -1,6 +1,7 @@
 package com.Ryoshi.DatabaseProgram.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Set;
 
@@ -10,11 +11,17 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotBlank
     private String first_name;
+    @NotBlank
     private String last_name;
+    @NotBlank
     private String street;
+    @NotBlank
     private String home;
+    @NotBlank
     private String district;
+    @NotBlank
     private int postalCode;
     @OneToMany(mappedBy = "owner")
     private Set<Dogs> dogs;

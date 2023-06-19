@@ -28,12 +28,14 @@
         <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
       </div>
     </div>
-      <div class="field" th:switch="${owner}">
-        <label for="owner">Owner</label>
-        <p th:case="null">No Owners yet!</p>
-        <select id="owner" th:case="*" th:field="*{owner}">
-          <option th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
-        </select>
+      <div class="field" th:switch="${#lists.size(owner)}">
+        <p th:case="'0'">No Owners yet!<a href="/add-owner">Add One here</a></p>
+        <div th:case="*" >
+          <label for="owner">Owner</label>
+          <select id="owner" th:field="*{owner}">
+            <option th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
+          </select>
+        </div>
       </div>
     <input type="submit" value="Add Dog">
   </form>

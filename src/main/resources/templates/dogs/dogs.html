@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dogs</title>
+  <link rel="stylesheet" href="/table.css">
+  <link rel="stylesheet" href="/header.css">
+</head>
+<body>
+<header class="header">
+  <ul class="header-content">
+    <li><a href="/index">Home</a></li>
+    <li><a href="/dogs">Dogs</a></li>
+    <li><a href="/owner">Owner</a></li>
+  </ul>
+</header>
+<div>
+  <div th:switch="${#lists.size(dogs)}">
+    <h2 th:case="'0'">No Dogs yet!</h2>
+    <div th:case="*">
+      <h2>Dogs</h2>
+      <table cellspacing="0">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Breed</th>
+          <th>Age</th>
+          <th>Owner</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dogs : ${dogs}">
+          <td th:text="${dogs.name}"></td>
+          <td th:text="${dogs.breed}"></td>
+          <td th:text="${dogs.age}"></td>
+          <td th:text="${dogs.owner.getFirst_name()}"></td>
+          <td><a th:href="@{/edit/{id}(id=${dogs.id})}">Edit</a></td>
+          <td><a th:href="@{/delete/{id}(id=${dogs.id})}">Delete</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <p><a href="/add-dogs">Add a new Dog</a></p>
+  </div>
+</div>
+</body>
+</html>
