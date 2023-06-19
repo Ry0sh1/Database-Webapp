@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Add Dogs</title>
-  <link rel="stylesheet" href="/addDogs.css">
+  <link rel="stylesheet" href="/addWindow.css">
 </head>
 <body>
-  <form action="#" th:action="@{/addDogs}" th:object="${dogs}" method="post">
+  <form action="#" th:action="@{/add-dogs}" th:object="${dogs}" method="post">
     <div class="field">
       <label for="name">Name</label>
       <div class="input-field">
@@ -28,13 +28,13 @@
         <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
       </div>
     </div>
-    <div class="field" th:switch="${owner}">
-      <label for="owner">Owner</label>
-      <h2 th:case="null">No Owners yet!</h2>
-      <select id="owner" th:case="*" th:field="*{owner}">
-        <option th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
-      </select>
-    </div>
+      <div class="field" th:switch="${owner}">
+        <label for="owner">Owner</label>
+        <p th:case="null">No Owners yet!</p>
+        <select id="owner" th:case="*" th:field="*{owner}">
+          <option th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
+        </select>
+      </div>
     <input type="submit" value="Add Dog">
   </form>
 </body>

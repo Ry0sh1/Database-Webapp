@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Udate Owner</title>
-  <link rel="stylesheet" href="/addDogs.css">
+  <link rel="stylesheet" href="/addWindow.css">
 </head>
 <body>
-<form action="#" method="post" th:object="${owner}" th:action="@{/updateOwner/{id}(id=${owner.id})}">
+<form action="#" method="post" th:object="${owner}" th:action="@{/update-owner/{id}(id=${owner.id})}">
   <div class="field">
     <label for="first_name">First Name:</label>
     <input type="text" th:field="*{first_name}" id="first_name" placeholder="First Name" required>

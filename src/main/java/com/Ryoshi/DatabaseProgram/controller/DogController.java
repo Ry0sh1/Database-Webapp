@@ -20,17 +20,18 @@ public class DogController {
         this.ownerRepository = ownerRepository;
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/add-dogs")
     public String showSignUpForm(Dogs dogs, Model model) {
         model.addAttribute("owner", ownerRepository.findAll());
         return "dogs/add-dogs";
     }
 
-    @PostMapping("/addDogs")
+    @PostMapping("/add-dogs")
     public String addDogs(@Valid Dogs dogs, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "dogs/add-dogs";
         }
+        model.addAttribute("owner", ownerRepository.findAll());
         dogRepository.save(dogs);
         return "redirect:/index";
     }
@@ -65,5 +66,4 @@ public class DogController {
         return "redirect:/index";
     }
 
-    // additional CRUD methods
 }

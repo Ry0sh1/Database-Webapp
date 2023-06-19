@@ -17,6 +17,13 @@ public class GeneralController {
         this.dogRepository = dogRepository;
     }
 
+    @GetMapping("")
+    public String home(Model model){
+        model.addAttribute("owner", ownerRepository.findAll());
+        model.addAttribute("dogs", dogRepository.findAll());
+        return "index";
+    }
+
     @GetMapping("/index")
     public String showIndex(Model model){
         model.addAttribute("owner", ownerRepository.findAll());

@@ -21,7 +21,7 @@ public class OwnerController {
         this.dogRepository = dogRepository1;
     }
 
-    @GetMapping("/newOwner")
+    @GetMapping("/new-owner")
     public String newOwner(Owner owner){
         return "/owner/add-owner";
     }
@@ -32,7 +32,7 @@ public class OwnerController {
         return "redirect:/index";
     }
 
-    @GetMapping("/updateOwner/{id}")
+    @GetMapping("/update-owner/{id}")
     public String showOwner(@PathVariable long id, Model model){
         Owner owner = ownerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Owner Id:" + id));
@@ -40,13 +40,13 @@ public class OwnerController {
         return "/owner/update-owner";
     }
 
-    @PostMapping("/updateOwner/{id}")
+    @PostMapping("/update-owner/{id}")
     public String updateOwner(@PathVariable long id, Owner owner){
         ownerRepository.save(owner);
         return "redirect:/index";
     }
 
-    @GetMapping("/deleteOwner/{id}")
+    @GetMapping("/delete-owner/{id}")
     public String deleteOwner(@PathVariable long id){
         dogRepository.deleteAllByOwnerId(id);
         ownerRepository.deleteById(id);

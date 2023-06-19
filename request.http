@@ -1,0 +1,14 @@
+###
+POST http://localhost:8080/api/content
+
+###
+GET http://localhost:8080/api/content
+
+###
+POST http://localhost:8080/api/content
+
+###
+GET http://localhost:8080/add-dogs
+
+###
+GET http://localhost:8080/add-dogs
