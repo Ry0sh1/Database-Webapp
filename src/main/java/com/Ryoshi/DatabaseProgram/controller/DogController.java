@@ -4,10 +4,14 @@ import com.Ryoshi.DatabaseProgram.model.Dogs;
 import com.Ryoshi.DatabaseProgram.repository.DogRepository;
 import com.Ryoshi.DatabaseProgram.repository.OwnerRepository;
 import jakarta.validation.Valid;
+import org.springframework.boot.Banner;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 @Controller
 public class DogController {
@@ -23,6 +27,8 @@ public class DogController {
     @GetMapping("/dogs")
     public String showDogs(Model model){
         model.addAttribute("dogs", dogRepository.findAll());
+        Set<String> t = new HashSet<>(dogRepository.getBreed());
+        model.addAttribute("breeds", t);
         return "dogs/dogs";
     }
 
@@ -37,6 +43,7 @@ public class DogController {
         if (result.hasErrors()) {
             return "dogs/add-dogs";
         }
+        dogRepository.save(dogs);
         return "redirect:/index";
     }
 
@@ -69,5 +76,6 @@ public class DogController {
         dogRepository.delete(dogs);
         return "redirect:/index";
     }
+
 
 }

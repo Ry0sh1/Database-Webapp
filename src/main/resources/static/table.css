@@ -9,6 +9,9 @@ th, td{
   padding: 22px;
   border: black solid 1px;
 }
+td:last-child, td:nth-last-child(2){
+  border:none;
+}
 h2{
   padding: 22px;
 }

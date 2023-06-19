@@ -1,0 +1,16 @@
+.filter-breeds{
+    display: flex;
+    padding: 12px 22px 0 22px;
+    align-items: center;
+    justify-content: left;
+}
+select{
+    height: 40px;
+    width: 251px;
+    padding: 1px 2px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.table{
+    margin-left: 20px;
+}
