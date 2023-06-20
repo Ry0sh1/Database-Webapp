@@ -1,0 +1,32 @@
+.month-field{
+  display: grid;
+  grid-template-columns:100px 100px 100px 100px 100px 100px 100px;
+  grid-template-rows:100px 100px 100px 100px 100px 100px 100px;
+}
+.day-field, .day-head{
+  border: black solid 1px;
+  background-color: #312c2c;
+  color: white;
+  font-size: 24px;
+  font-family: Arial, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#month{
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button{
+  margin-top: 20px;
+  height: 60px;
+  width: 200px;
+}
