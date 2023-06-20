@@ -7,3 +7,31 @@
   width: 100%;
   text-align: center;
 }
+.add-button{
+  background-color: #008cff;
+  border: none;
+  border-radius: 80px;
+  padding: 18px;
+  color: white;
+  transition: all 0.15s;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+}
+.add-button:hover{
+  box-shadow: 0 0 10px black;
+}
+.add-button:active{
+  box-shadow: 0 0 10px black;
+  background-color: white;
+  color: #008cff;
+}
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.column{
+  flex-direction: column;
+}
