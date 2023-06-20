@@ -29,7 +29,8 @@ public class OwnerController {
     }
 
     @GetMapping("/new-owner")
-    public String newOwner(Owner owner){
+    public String newOwner(Owner owner, Model model){
+        model.addAttribute("owner", new Owner());
         return "owner/add-owner";
     }
 

@@ -1,18 +1,24 @@
 package com.Ryoshi.DatabaseProgram.controller;
 
+import com.Ryoshi.DatabaseProgram.model.Event;
+import com.Ryoshi.DatabaseProgram.repository.DogRepository;
 import com.Ryoshi.DatabaseProgram.repository.EventRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CalendarController {
 
     private final EventRepository eventRepository;
+    private final DogRepository dogRepository;
 
-    public CalendarController(EventRepository eventRepository){
+    public CalendarController(EventRepository eventRepository, DogRepository dogRepository){
         this.eventRepository = eventRepository;
+        this.dogRepository = dogRepository;
     }
 
     @GetMapping("/calendar")
@@ -31,8 +37,21 @@ public class CalendarController {
     }
 
     @GetMapping("/calendar/{year}/{month}/{day}/add-event")
-    public String addEvent(@PathVariable int year, @PathVariable int month, @PathVariable int day, Model model){
+    public String showAddEvent(@PathVariable int year, @PathVariable int month, @PathVariable int day, Model model){
+        model.addAttribute("dogs",dogRepository.findAll());
+        String date = year + "" + month + "" + day;
+        model.addAttribute("cDate", date);
+        model.addAttribute("day", day);
+        model.addAttribute("month", month);
+        model.addAttribute("year", year);
+        model.addAttribute("event", new Event());
         return "calendar/add-event";
+    }
+
+    @PostMapping("/calendar/add-event")
+    public String addEvent(@Valid Event event, Model model){
+        eventRepository.save(event);
+        return "redirect:/calendar";
     }
 
 }

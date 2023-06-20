@@ -12,8 +12,6 @@ public class Event {
     @Id
     @GeneratedValue
     private long id;
-
-    @NotBlank
     private String date;
     private String title;
     private String content;

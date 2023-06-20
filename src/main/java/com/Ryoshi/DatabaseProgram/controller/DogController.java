@@ -35,6 +35,7 @@ public class DogController {
     @GetMapping("/add-dogs")
     public String showSignUpForm(Dogs dogs, Model model) {
         model.addAttribute("owner", ownerRepository.findAll());
+        model.addAttribute("dogs", new Dogs());
         return "dogs/add-dogs";
     }
 

@@ -35,3 +35,10 @@
 .column{
   flex-direction: column;
 }
+.invisible{
+  font-size: 0;
+  color: transparent;
+  width: 0;
+  height: 0;
+  border: none;
+}

@@ -24,7 +24,7 @@
     <div class="center" th:switch="${#lists.size(events)}">
       <div class="center column" th:case="'0'">
         <h2>No Events yet!</h2>
-        <p class="center"><button class="add-button">Add Event</button></p>
+        <p class="center"><button onclick="addEvent()" class="add-button">Add Event</button></p>
       </div>
       <div th:case="*">
         <h2>Congrats</h2>
