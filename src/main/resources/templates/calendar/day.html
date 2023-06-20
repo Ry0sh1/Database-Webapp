@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Day viewer</title>
+    <link rel="stylesheet" href="/calendar/day.css">
+    <link rel="stylesheet" href="/general.css">
+    <link rel="stylesheet" href="/header.css">
+  </head>
+  <body>
+    <header class="header">
+      <ul class="header-content">
+        <li><a href="/index">Home</a></li>
+        <li><a href="/dogs">Dogs</a></li>
+        <li><a href="/owner">Owner</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+      </ul>
+    </header>
+    <div class="date">
+      <p id="day" th:text="${day}"></p><p class="space">. </p>
+      <p id="month" th:text="${month}"></p>
+      <p id="year" th:text="${year}"></p>
+    </div>
+  <script src="/calendar/day.js"></script>
+  </body>
+</html>

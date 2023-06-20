@@ -1,0 +1,9 @@
+#year, #month, #day, .space{
+  display: inline-block;
+  font-size: 28px;
+  font-weight: bold;
+}
+.date{
+  width: 100%;
+  text-align: center;
+}

@@ -1,6 +1,6 @@
 const DAY_FIELDS = document.getElementsByClassName("day-field");
 const MONTH_PANEL = document.getElementById("month");
-const MONTHS = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"]
+const MONTHS = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 const date = new Date();
 makeCalendar();
 
@@ -36,5 +36,15 @@ function makeCalendar(){
 function deleteCalendar(){
     for (let i = 0;i < DAY_FIELDS.length;i++){
         DAY_FIELDS[i].innerHTML = "";
+    }
+}
+function dayClick(target){
+    if (target.innerHTML === ''){
+        //DO NOTHING
+    }else {
+        let day = target.innerHTML;
+        let month =date.getMonth();
+        let year = date.getFullYear();
+        window.location.href = `/calendar/${year}/${month}/${day}`;
     }
 }
