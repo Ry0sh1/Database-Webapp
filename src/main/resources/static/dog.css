@@ -1,8 +1,16 @@
-.filter-breeds{
+.filter{
     display: flex;
     padding: 12px 22px 0 22px;
     align-items: center;
-    justify-content: left;
+    justify-content: space-between;
+}
+.all-filter{
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+}
+.filter-name{
+    width: 200px;
 }
 select{
     height: 40px;

@@ -5,9 +5,14 @@ function addOwner(){
     window.location.href="/new-owner";
 }
 function filterByBreed(){
-    const breeds = document.getElementById("breeds");
-    const breed = breeds.options[breeds.selectedIndex].text;
-    window.location.href="/dogs/filter/" + breed    ;
+    const element = document.getElementById("breeds");
+    const breed = element.options[element.selectedIndex].text;
+    window.location.href="/dogs/filter/breed/" + breed;
+}
+function filterByOwner(){
+    const element = document.getElementById("owner");
+    const owner = element.options[element.selectedIndex].value;
+    window.location.href="/dogs/filter/owner/" + owner;
 }
 function removeFilter(){
     window.location.href="/dogs";

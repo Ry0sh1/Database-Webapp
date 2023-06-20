@@ -1,6 +1,7 @@
 package com.Ryoshi.DatabaseProgram.repository;
 
 import com.Ryoshi.DatabaseProgram.model.Dogs;
+import com.Ryoshi.DatabaseProgram.model.Owner;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,5 +19,6 @@ public interface DogRepository extends CrudRepository<Dogs, Long> {
     List<String> getBreed();
 
     List<Dogs> findAllByBreed(String breed);
+    List<Dogs> findAllByOwner(Owner owner);
 
 }

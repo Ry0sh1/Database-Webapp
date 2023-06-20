@@ -36,7 +36,7 @@ public class OwnerController {
     @PostMapping("/add-owner")
     public String addOwner(@Valid Owner owner){
         ownerRepository.save(owner);
-        return "redirect:/index";
+        return "/owner/owner";
     }
 
     @GetMapping("/update-owner/{id}")
@@ -50,14 +50,14 @@ public class OwnerController {
     @PostMapping("/update-owner/{id}")
     public String updateOwner(@PathVariable long id, Owner owner){
         ownerRepository.save(owner);
-        return "redirect:/index";
+        return "owner/owner";
     }
 
     @GetMapping("/delete-owner/{id}")
     public String deleteOwner(@PathVariable long id){
         dogRepository.deleteAllByOwnerId(id);
         ownerRepository.deleteById(id);
-        return "redirect:/index";
+        return "/owner/owner";
     }
 
 }

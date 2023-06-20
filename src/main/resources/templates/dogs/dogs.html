@@ -19,9 +19,13 @@
 </header>
 <div>
   <div th:switch="${#lists.size(dogs)}">
-    <h2 th:case="'0'">No Dogs yet!</h2>
+    <div th:case="'0'">
+      <h2>No Dogs yet!</h2>
+      <p><button class="add-button" onclick="addDog()">Add Dog</button></p>
+    </div>
     <div th:case="*">
-      <h2>Dogs</h2>
+      <h2 style="display: inline-block">Dogs</h2>
+      <p style="display: inline-block"><button class="add-button" onclick="addDog()">Add Dog</button></p>
       <table class="table" cellspacing="0">
         <thead>
         <tr>
@@ -42,16 +46,24 @@
         </tr>
         </tbody>
       </table>
-      <div class="filter-breeds">
-        <label class="small-h" for="breeds">Dog Breeds</label>
-        <select id="breeds">
-          <option class="small-p" th:each="breeds : ${breeds}" th:text="${breeds}" th:value="${breeds}"></option>
-        </select>
-        <p><button class="add-button" onclick="filterByBreed()">Go</button></p>
+      <div class="all-filter">
+        <div class="filter">
+          <label class="small-h filter-name" for="breeds">Dog Breeds</label>
+          <select id="breeds">
+            <option class="small-p" th:each="breeds : ${breeds}" th:text="${breeds}" th:value="${breeds}"></option>
+          </select>
+          <p><button class="add-button" onclick="filterByBreed()">Go</button></p>
+        </div>
+        <div class="filter">
+          <label class="small-h filter-name" for="owner">Owner</label>
+          <select id="owner">
+            <option class="small-p" th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
+          </select>
+          <p><button class="add-button" onclick="filterByOwner()">Go</button></p>
+        </div>
         <p><button class="add-button" onclick="removeFilter()">RemoveFilter</button></p>
       </div>
     </div>
-    <p><button class="add-button" onclick="addDog()">Add Dog</button></p>
   </div>
 </div>
 </body>

@@ -1,11 +1,10 @@
 package com.Ryoshi.DatabaseProgram.controller;
 
 import com.Ryoshi.DatabaseProgram.model.Dogs;
+import com.Ryoshi.DatabaseProgram.model.Owner;
 import com.Ryoshi.DatabaseProgram.repository.DogRepository;
 import com.Ryoshi.DatabaseProgram.repository.OwnerRepository;
 import jakarta.validation.Valid;
-import org.springframework.boot.Banner;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +28,8 @@ public class DogController {
         model.addAttribute("dogs", dogRepository.findAll());
         Set<String> t = new HashSet<>(dogRepository.getBreed());
         model.addAttribute("breeds", t);
-        return "dogs/dogs";
+        model.addAttribute("owner",ownerRepository.findAll());
+        return "/dogs/dogs";
     }
 
     @GetMapping("/add-dogs")
@@ -44,7 +44,7 @@ public class DogController {
             return "dogs/add-dogs";
         }
         dogRepository.save(dogs);
-        return "redirect:/index";
+        return showDogs(model);
     }
 
     @GetMapping("/edit/{id}")
@@ -66,7 +66,7 @@ public class DogController {
         }
 
         dogRepository.save(dogs);
-        return "redirect:/index";
+        return showDogs(model);
     }
 
     @GetMapping("/delete/{id}")
@@ -74,14 +74,24 @@ public class DogController {
         Dogs dogs = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Dog Id:" + id));
         dogRepository.delete(dogs);
-        return "redirect:/index";
+        return showDogs(model);
     }
 
-    @GetMapping("/dogs/filter/{breed}")
+    @GetMapping("/dogs/filter/breed/{breed}")
     public String getFilteredByBreed(Model model, @PathVariable String breed){
         model.addAttribute("dogs", dogRepository.findAllByBreed(breed));
         Set<String> t = new HashSet<>(dogRepository.getBreed());
         model.addAttribute("breeds", t);
+        model.addAttribute("owner",ownerRepository.findAll());
+        return "dogs/dogs";
+    }
+
+    @GetMapping("/dogs/filter/owner/{owner}")
+    public String getFilteredByOwner(Model model, @PathVariable Owner owner){
+        model.addAttribute("dogs", dogRepository.findAllByOwner(owner));
+        Set<String> t = new HashSet<>(dogRepository.getBreed());
+        model.addAttribute("breeds", t);
+        model.addAttribute("owner",ownerRepository.findAll());
         return "dogs/dogs";
     }
 

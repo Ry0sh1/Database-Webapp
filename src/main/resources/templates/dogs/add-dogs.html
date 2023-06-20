@@ -33,7 +33,7 @@
     <div class="field">
       <label for="age">Age</label>
       <div class="input-field">
-        <input class="input" type="number" th:field="*{age}" id="age">
+        <input class="input" type="number" min="1" max="50" th:field="*{age}" id="age" value="2">
         <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
       </div>
     </div>
