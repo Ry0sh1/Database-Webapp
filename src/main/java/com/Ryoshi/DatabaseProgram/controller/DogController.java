@@ -44,7 +44,7 @@ public class DogController {
             return "dogs/add-dogs";
         }
         dogRepository.save(dogs);
-        return showDogs(model);
+        return "redirect:/dogs";
     }
 
     @GetMapping("/edit/{id}")
@@ -66,7 +66,7 @@ public class DogController {
         }
 
         dogRepository.save(dogs);
-        return showDogs(model);
+        return "redirect:/dogs";
     }
 
     @GetMapping("/delete/{id}")

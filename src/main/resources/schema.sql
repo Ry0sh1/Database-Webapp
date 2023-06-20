@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS owner(
     home TEXT,
     district TEXT,
     postalCode int,
+    number TEXT,
     primary key (id)
 );
 CREATE TABLE IF NOT EXISTS dogs(

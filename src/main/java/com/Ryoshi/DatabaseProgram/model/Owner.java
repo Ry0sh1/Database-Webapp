@@ -2,6 +2,7 @@ package com.Ryoshi.DatabaseProgram.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
@@ -11,21 +12,30 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    @NotBlank
     private String first_name;
-
+    @NotBlank
     private String last_name;
-
+    @NotBlank
     private String street;
-
+    @NotBlank
     private String home;
-
     private String district;
     private int postalCode;
+    @NotBlank
+    private String number;
     @OneToMany(mappedBy = "owner")
     private Set<Dogs> dogs;
 
-    public Owner(long id, String first_name, String last_name, String street, String home, String district, int postalCode, Set<Dogs> dogs) {
+    public Owner(long id,
+                 String first_name,
+                 String last_name,
+                 String street,
+                 String home,
+                 String district,
+                 int postalCode,
+                 String number,
+                 Set<Dogs> dogs) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -33,6 +43,7 @@ public class Owner {
         this.home = home;
         this.district = district;
         this.postalCode = postalCode;
+        this.number = number;
         this.dogs = dogs;
 
         /*
@@ -112,4 +123,13 @@ public class Owner {
     public void setDogs(Set<Dogs> dogs) {
         this.dogs = dogs;
     }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
 }

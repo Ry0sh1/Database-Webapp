@@ -18,27 +18,38 @@
   <form action="#" th:action="@{/add-owner}" th:object="${owner}" method="post">
     <div class="field">
       <label for="first_name">First Name:</label>
-      <input class="input" type="text" th:field="*{first_name}" id="first_name" placeholder="First Name" required>
+      <input class="input" type="text" th:field="*{first_name}" id="first_name" placeholder="First Name">
+      <span class="error" th:if="${#fields.hasErrors('first_name')}" th:errors="*{first_name}"></span>
     </div>
     <div class="field">
       <label for="last_name">Last Name:</label>
       <input class="input" th:field="*{last_name}" id="last_name" placeholder="Last Name" type="text" required>
+      <span class="error" th:if="${#fields.hasErrors('last_name')}" th:errors="*{last_name}"></span>
     </div>
     <div class="field">
       <label for="street">Street:</label>
       <input class="input" id="street" placeholder="Street" type="text" th:field="*{street}">
+      <span class="error" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></span>
     </div>
     <div class="field">
       <label for="home">Home:</label>
       <input class="input" id="home" placeholder="Home" type="text" th:field="*{home}">
+      <span class="error" th:if="${#fields.hasErrors('home')}" th:errors="*{home}"></span>
     </div>
     <div class="field">
       <label for="district">District:</label>
       <input class="input" id="district" placeholder="District" type="text" th:field="*{district}">
+      <span class="error" th:if="${#fields.hasErrors('district')}" th:errors="*{district}"></span>
     </div>
     <div class="field">
       <label for="postalCode">Postal Code:</label>
       <input class="input" id="postalCode" placeholder="Postal Code" th:field="*{postalCode}" type="text">
+      <span class="error" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></span>
+    </div>
+    <div class="field">
+      <label for="number">Number:</label>
+      <input class="input" id="number" placeholder="Number" th:field="*{number}" type="text">
+      <span class="error" th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></span>
     </div>
     <input class="submit" type="submit">
   </form>
