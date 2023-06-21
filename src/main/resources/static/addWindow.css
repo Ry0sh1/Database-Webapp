@@ -53,3 +53,9 @@ select{
   background-color: white;
   color: #008cff;
 }
+.center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

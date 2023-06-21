@@ -31,32 +31,32 @@
     <div class="field">
       <label for="title">Title</label>
       <div class="input-field">
-        <input type="text" class="input" id="title" th:field="*{title}" placeholder="Title">
+        <input type="text" class="input" id="title" th:field="*{title}" placeholder="Title" required>
       </div>
     </div>
     <div class="field">
       <label for="content">Content</label>
       <div class="input-field">
-        <input type="text" class="input" id="content" th:field="*{content}" placeholder="Content">
+        <input type="text" class="input" id="content" th:field="*{content}" placeholder="Content" required>
       </div>
     </div>
     <div class="field">
       <label for="starting">Starting</label>
       <div class="input-field">
-        <input type="time" class="input" id="starting" th:field="*{starting}">
+        <input type="time" class="input" id="starting" th:field="*{starting}" required>
       </div>
     </div>
     <div class="field">
       <label for="ending">Ending</label>
       <div class="input-field">
-        <input type="time" class="input" id="ending" th:field="*{ending}">
+        <input type="time" class="input" id="ending" th:field="*{ending}" required>
       </div>
     </div>
     <div th:switch="${#lists.size(dogs)}">
       <p th:case="'0'">No Dogs yet!<a href="/add-dogs"> Add One here</a></p>
       <div class="field" th:case="*" >
         <label for="dogs">Dogs</label>
-        <select id="dogs" th:field="*{dog}">
+        <select id="dogs" th:field="*{dog}" required>
           <option th:each="dog : ${dogs}" th:text="${dog.name}" th:value="${dog.id}"></option>
         </select>
       </div>

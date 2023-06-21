@@ -2,7 +2,7 @@ body{
     padding-top: 80px;
 }
 .header{
-    position: absolute;
+    position: fixed;
     right: 0;
     left: 0;
     top: 0;

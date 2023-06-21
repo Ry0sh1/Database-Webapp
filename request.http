@@ -1,14 +1,41 @@
 ###
-POST http://localhost:8080/api/content
+GET http://localhost:8080/owner
 
 ###
-GET http://localhost:8080/api/content
+GET http://localhost:8080/new-owner
 
 ###
-POST http://localhost:8080/api/content
+GET http://localhost:8080/update-owner/1
+
+###
+GET http://localhost:8080/delete-owner/1
+
+###
+GET http://localhost:8080/index
+
+###
+GET http://localhost:8080/dogs
 
 ###
 GET http://localhost:8080/add-dogs
 
 ###
-GET http://localhost:8080/add-dogs
+GET http://localhost:8080/edit/1
+
+###
+GET http://localhost:8080/delete/1
+
+###
+GET http://localhost:8080/dogs/filter/breed/Havaneser
+
+###
+GET http://localhost:8080/dogs/filter/owner/Ronja
+
+###
+GET http://localhost:8080/calendar
+
+###
+GET http://localhost:8080/calendar/2001/1/18
+
+###
+GET http://localhost:8080/calendar/2023/1/18/add-event
