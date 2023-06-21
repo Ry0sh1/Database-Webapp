@@ -3,7 +3,9 @@ const MONTH_PANEL = document.getElementById("month");
 const MONTHS = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 const date = new Date();
 
-const DAY_WITH_EVENTS = document.getElementsByClassName("invisible");
+const DAY_WITH_EVENTS_DAY = document.getElementsByClassName("day");
+const DAY_WITH_EVENTS_MONTH = document.getElementsByClassName("month");
+const DAY_WITH_EVENTS_YEAR = document.getElementsByClassName("year");
 
 makeCalendar();
 
@@ -66,8 +68,10 @@ function hasEvent(pDate){
     const year = date.getFullYear();
     const month = date.getMonth();
 
-    for (let i = 0;i < DAY_WITH_EVENTS.length;i++){
-        if (`${year}${month}${pDate}`=== DAY_WITH_EVENTS[i].innerHTML){
+    for (let i = 0;i < DAY_WITH_EVENTS_DAY.length;i++){
+        if (`${year}` === DAY_WITH_EVENTS_YEAR[i].innerHTML &&
+            `${month}` === DAY_WITH_EVENTS_MONTH[i].innerHTML &&
+            `${pDate}` === DAY_WITH_EVENTS_DAY[i].innerHTML){
             return true;
         }
     }

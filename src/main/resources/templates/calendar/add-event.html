@@ -19,9 +19,9 @@
   </header>
   <form action="#" th:action="@{/calendar/add-event}" th:object="${event}" method="post">
     <div class="field">
-      <p class="invisible" id="date-p" th:text="${cDate}"></p>
-      <label class="invisible" for="date-input"></label>
-      <input class="invisible" id="date-input" th:field="*{date}">
+      <input class="invisible" id="day-input" th:field="*{event_day}">
+      <input class="invisible" id="month-input" th:field="*{event_month}">
+      <input class="invisible" id="year-input" th:field="*{event_year}">
       <div class="date">
         <p id="day" th:text="${day}"></p><p class="space">. </p>
         <p id="month" th:text="${month}"></p>
@@ -64,8 +64,13 @@
     <input class="submit" type="submit" value="Add Event">
   </form>
   <script>
-    const dateElement = document.getElementById("date-p");
-    document.getElementById("date-input").value = dateElement.innerHTML;
+    const dayElement = document.getElementById("day");
+    document.getElementById("day-input").value = dayElement.innerHTML;
+    const monthElement = document.getElementById("month");
+    document.getElementById("month-input").value = monthElement.innerHTML;
+    const yearElement = document.getElementById("year");
+    document.getElementById("year-input").value = yearElement.innerHTML;
+
     const MONTH_ELEMENT = document.getElementById('month');
     const MONTHS = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 

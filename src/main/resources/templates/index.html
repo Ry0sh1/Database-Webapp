@@ -139,6 +139,35 @@
               Added Goals List
             </p>
           </li>
+          <li>
+            <p class="small-p">
+              You can now view Events in Event Tab
+            </p>
+          </li>
+          <li>
+            <p class="small-p">
+              Visual feature on Days with Event
+            </p>
+          </li>
+          <li>
+            <p class="small-p">
+              Better redirecting after adding an Event
+            </p>
+          </li>
+          <li>
+            <p class="small-p">
+              Changed how the Database is saved an Event to prevent following bugs:
+            </p>
+            <ul>
+              <li>
+                Dates that are saved in a 7 digit way for example 2023123 could be two days 23.1.2023 and 3.12.2023 therefore there would be same events on both days if
+                you add it to one
+              </li>
+              <li>
+                Not possible to read exactly out of Database if you save the date in this pattern "yyyy(m)m(d)d" therefore better directing wouldn't be possible
+              </li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>
@@ -151,21 +180,6 @@
       <li>
         <p class="small-p">
           Show all Events
-        </p>
-      </li>
-      <li>
-        <p class="small-p">
-          Better redirecting after adding an Event
-        </p>
-      </li>
-      <li>
-        <p class="small-p">
-          You can now view Events in Event Tab
-        </p>
-      </li>
-      <li>
-        <p class="small-p">
-          Visual feature on Days with Event.
         </p>
       </li>
     </ul>
