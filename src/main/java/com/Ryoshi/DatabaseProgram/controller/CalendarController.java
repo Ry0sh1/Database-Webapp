@@ -4,6 +4,7 @@ import com.Ryoshi.DatabaseProgram.model.Event;
 import com.Ryoshi.DatabaseProgram.repository.DogRepository;
 import com.Ryoshi.DatabaseProgram.repository.EventRepository;
 import jakarta.validation.Valid;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,8 @@ public class CalendarController {
     }
 
     @GetMapping("/calendar")
-    public String calendar(){
+    public String calendar(Model model){
+        model.addAttribute("events", eventRepository.findAll());
         return "calendar/calendar";
     }
 

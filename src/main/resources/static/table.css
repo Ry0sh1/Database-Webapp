@@ -57,3 +57,6 @@ p{
 .table{
   margin-left: 20px;
 }
+.no-padding{
+  padding: 0;
+}

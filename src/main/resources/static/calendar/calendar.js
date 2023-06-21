@@ -2,6 +2,9 @@ const DAY_FIELDS = document.getElementsByClassName("day-field");
 const MONTH_PANEL = document.getElementById("month");
 const MONTHS = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 const date = new Date();
+
+const DAY_WITH_EVENTS = document.getElementsByClassName("invisible");
+
 makeCalendar();
 
 function changeMonth(n) {
@@ -20,22 +23,33 @@ function makeCalendar(){
 
     let i = 0;
 
+    //If first day is on Sunday
     if (date.getDay()-1<=0){
         DAY_FIELDS[date.getDay()-1+7].innerHTML = 1;
+        if (hasEvent(1)){
+            DAY_FIELDS[date.getDay()-1+7].classList.add("event");
+        }
         shifted = true;
         i++;
     }
     for (i;i < lastDayOfMonth.getDate();i++){
+        let DAY;
         if (shifted){
-            DAY_FIELDS[date.getDay()+i-1+7].innerHTML = i + 1;
+            DAY = DAY_FIELDS[date.getDay()+i-1+7];
+            DAY.innerHTML = i + 1;
         }else {
-            DAY_FIELDS[date.getDay()+i-1].innerHTML = i + 1;
+            DAY = DAY_FIELDS[date.getDay()+i-1];
+            DAY.innerHTML = i + 1;
+        }
+        if (hasEvent(i+1)){
+            DAY.classList.add("event");
         }
     }
 }
 function deleteCalendar(){
     for (let i = 0;i < DAY_FIELDS.length;i++){
         DAY_FIELDS[i].innerHTML = "";
+        DAY_FIELDS[i].classList.remove("event");
     }
 }
 function dayClick(target){
@@ -47,4 +61,15 @@ function dayClick(target){
         let year = date.getFullYear();
         window.location.href = `/calendar/${year}/${month}/${day}`;
     }
+}
+function hasEvent(pDate){
+    const year = date.getFullYear();
+    const month = date.getMonth();
+
+    for (let i = 0;i < DAY_WITH_EVENTS.length;i++){
+        if (`${year}${month}${pDate}`=== DAY_WITH_EVENTS[i].innerHTML){
+            return true;
+        }
+    }
+    return false;
 }

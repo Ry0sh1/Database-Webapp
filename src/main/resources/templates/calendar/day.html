@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/calendar/day.css">
     <link rel="stylesheet" href="/general.css">
     <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/table.css">
   </head>
   <body>
     <header class="header">
@@ -17,18 +18,39 @@
       </ul>
     </header>
     <div class="date">
-      <p id="day" th:text="${day}"></p><p class="space">. </p>
-      <p id="month" th:text="${month}"></p>
-      <p id="year" th:text="${year}"></p>
+      <p class="no-padding" id="day" th:text="${day}"></p><p class="space no-padding">. </p>
+      <p class="no-padding" id="month" th:text="${month}"></p>
+      <p class="no-padding" id="year" th:text="${year}"></p>
     </div>
     <div class="center" th:switch="${#lists.size(events)}">
       <div class="center column" th:case="'0'">
         <h2>No Events yet!</h2>
-        <p class="center"><button onclick="addEvent()" class="add-button">Add Event</button></p>
       </div>
       <div th:case="*">
-        <h2>Congrats</h2>
+        <table cellspacing="0">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Content</th>
+              <th>Starting</th>
+              <th>Ending</th>
+              <th>Dog</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="event : ${events}">
+              <td th:text="${event.title}"></td>
+              <td th:text="${event.content}"></td>
+              <td th:text="${event.starting}"></td>
+              <td th:text="${event.ending}"></td>
+              <td th:text="${event.dog.getName()}"></td>
+              <td>Edit</td>
+              <td>Delete</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+      <p class="center"><button onclick="addEvent()" class="add-button">Add Event</button></p>
     </div>
   <script src="/calendar/day.js"></script>
   </body>

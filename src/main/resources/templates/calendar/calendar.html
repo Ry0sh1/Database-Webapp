@@ -17,6 +17,7 @@
     </ul>
   </header>
     <p id="month"></p>
+    <p class="invisible" th:each="event : ${events}" th:text="${event.date}"></p>
     <div class="month-field">
       <div class="day-head">Mo</div>
       <div class="day-head">Di</div>
