@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 @Controller
 public class CalendarController {
 
@@ -50,6 +52,28 @@ public class CalendarController {
     public String addEvent(@Valid Event event, Model model){
         eventRepository.save(event);
         return "redirect:/calendar/" + event.getEvent_year() + "/" + event.getEvent_month() + "/" + event.getEvent_day();
+    }
+
+    @GetMapping("/calendar/update-event/{id}")
+    public String showUpdateEventWindow(@PathVariable long id, Model model){
+        Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Owner Id:" + id));
+        model.addAttribute("event",event);
+        model.addAttribute("dogs",dogRepository.findAll());
+        return "calendar/update-event";
+    }
+
+    @PostMapping("/calendar/update-event/{id}")
+    public String updateEvent(@PathVariable long id, @Valid Event event, Model model){
+        eventRepository.save(event);
+        return "redirect:/calendar/" + event.getEvent_year() + "/" + event.getEvent_month() + "/" + event.getEvent_day();
+    }
+
+    @GetMapping("/calendar/delete-event/{id}")
+    public String deleteEvent(@PathVariable long id, Model model){
+        Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Owner Id:" + id));
+        String ret = "redirect:/calendar/" + event.getEvent_year() + "/" + event.getEvent_month() + "/" + event.getEvent_day();
+        eventRepository.deleteById(id);
+        return ret;
     }
 
 }
