@@ -1,0 +1,36 @@
+div{
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.input{
+  margin-top: 10px;
+  margin-bottom: 60px;
+  height: 40px;
+  font-size: 20px;
+}
+label{
+  font-size: 20px;
+}
+.submit{
+   background-color: #008cff;
+   border: none;
+   border-radius: 80px;
+   padding: 18px;
+   color: white;
+   transition: all 0.15s;
+   font-weight: bold;
+   font-size: 18px;
+   cursor: pointer;
+ }
+.submit:hover{
+  box-shadow: 0 0 10px black;
+}
+.submit:active{
+  box-shadow: 0 0 10px black;
+  background-color: white;
+  color: #008cff;
+}

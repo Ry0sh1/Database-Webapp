@@ -33,23 +33,6 @@ CREATE TABLE IF NOT EXISTS event
     dog_id      BIGINT,
     PRIMARY KEY (id)
 );
-CREATE TABLE IF NOT EXISTS employee
-(
-    id              BIGINT AUTO_INCREMENT,
-    first_name      TEXT,
-    last_name       TEXT,
-    user_name       INT,
-    user_password   INT,
-    PRIMARY KEY (id)
-);
-CREATE TABLE IF NOT EXISTS customer
-(
-    id              BIGINT AUTO_INCREMENT,
-    first_name      TEXT,
-    last_name       TEXT,
-    user_name       INT,
-    user_password   INT,
-    PRIMARY KEY (id)
-);
+
 ALTER TABLE dogs ADD FOREIGN KEY (owner_id) REFERENCES owner(id);
 ALTER TABLE event ADD FOREIGN KEY (dog_id) REFERENCES dogs(id);
