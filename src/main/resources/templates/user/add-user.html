@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add User</title>
+</head>
+<body>
+<form action="#" th:action="@{/user/add-user}" th:object="${user}" method="post">
+  <div class="field">
+    <label for="username">Username:</label>
+    <input class="input" type="text" th:field="*{username}" id="username" placeholder="username" required>
+  </div>
+  <div class="field">
+    <label for="password">Password:</label>
+    <input class="input" th:field="*{password}" id="password" placeholder="Password" type="text" required>
+  </div>
+  <div class="field">
+    <label for="email">Email:</label>
+    <input class="input" id="email" placeholder="Email" type="text" th:field="*{email}" required>
+  </div>
+  <div class="field">
+    <label for="authorities">Authorities:</label>
+    <input class="input" id="authorities" placeholder="Authorities" type="text" th:field="*{authorities}" required>
+  </div>
+  <input class="submit" type="submit">
+</form>
+</body>
+</html>

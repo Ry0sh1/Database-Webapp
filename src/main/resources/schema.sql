@@ -33,6 +33,14 @@ CREATE TABLE IF NOT EXISTS event
     dog_id      BIGINT,
     PRIMARY KEY (id)
 );
+CREATE TABLE IF NOT EXISTS _user(
+    id BIGINT AUTO_INCREMENT,
+    username TEXT,
+    password TEXT,
+    email TEXT,
+    authorities TEXT,
+    PRIMARY KEY (id)
+);
 
 ALTER TABLE dogs ADD FOREIGN KEY (owner_id) REFERENCES owner(id);
 ALTER TABLE event ADD FOREIGN KEY (dog_id) REFERENCES dogs(id);
