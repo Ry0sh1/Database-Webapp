@@ -42,8 +42,8 @@
           <td th:text="${dogs.breed}"></td>
           <td th:text="${dogs.age}"></td>
           <td th:text="${dogs.owner.getFirst_name()}"></td>
-          <td><a th:href="@{/edit/{id}(id=${dogs.id})}">Edit</a></td>
-          <td><a th:href="@{/delete/{id}(id=${dogs.id})}">Delete</a></td>
+          <td><a th:href="@{/dogs/edit/{id}(id=${dogs.id})}">Edit</a></td>
+          <td><a th:href="@{/dogs/delete/{id}(id=${dogs.id})}">Delete</a></td>
         </tr>
         </tbody>
       </table>

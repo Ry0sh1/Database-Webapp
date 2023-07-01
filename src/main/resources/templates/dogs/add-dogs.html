@@ -16,7 +16,7 @@
     <li><a href="/calendar">Calendar</a></li>
   </ul>
 </header>
-  <form action="#" th:action="@{/add-dogs}" th:object="${dogs}" method="post">
+  <form action="#" th:action="@{/dogs/add-dogs}" th:object="${dogs}" method="post">
     <div class="field">
       <label for="name">Name</label>
       <div class="input-field">
@@ -39,7 +39,7 @@
       </div>
     </div>
       <div th:switch="${#lists.size(owner)}">
-        <p th:case="'0'">No Owners yet!<a href="/new-owner"> Add One here</a></p>
+        <p th:case="'0'">No Owners yet!<a href="/owner/new-owner"> Add One here</a></p>
         <div th:case="*" class="center">
           <div class="field">
             <label for="owner">Owner</label>

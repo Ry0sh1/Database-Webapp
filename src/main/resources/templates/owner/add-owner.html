@@ -16,7 +16,7 @@
     <li><a href="/calendar">Calendar</a></li>
   </ul>
 </header>
-  <form action="#" th:action="@{/add-owner}" th:object="${owner}" method="post">
+  <form action="#" th:action="@{/owner/add-owner}" th:object="${owner}" method="post">
     <div class="field">
       <label for="first_name">First Name:</label>
       <input class="input" type="text" th:field="*{first_name}" id="first_name" placeholder="First Name" required>

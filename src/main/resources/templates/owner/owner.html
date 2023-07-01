@@ -45,8 +45,8 @@
           <td th:text="${owner.district}"></td>
           <td th:text="${owner.postalCode}"></td>
           <td th:text="${owner.number}"></td>
-          <td><a th:href="@{/update-owner/{id}(id=${owner.id})}">Edit</a></td>
-          <td><a th:href="@{/delete-owner/{id}(id=${owner.id})}">Delete</a></td>
+          <td><a th:href="@{/owner/update-owner/{id}(id=${owner.id})}">Edit</a></td>
+          <td><a th:href="@{/owner/delete-owner/{id}(id=${owner.id})}">Delete</a></td>
         </tr>
         </tbody>
       </table>

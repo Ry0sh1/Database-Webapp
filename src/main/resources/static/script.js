@@ -1,8 +1,8 @@
 function addDog(){
-    window.location.href="/add-dogs";
+    window.location.href="/dogs/add-dogs";
 }
 function addOwner(){
-    window.location.href="/new-owner";
+    window.location.href="/owner/new-owner";
 }
 function filterByBreed(){
     const element = document.getElementById("breeds");

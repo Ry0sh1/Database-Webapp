@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/calendar")
 public class CalendarController {
 
     private final EventRepository eventRepository;
@@ -23,13 +25,13 @@ public class CalendarController {
         this.dogRepository = dogRepository;
     }
 
-    @GetMapping("/calendar")
+    @GetMapping
     public String calendar(Model model){
         model.addAttribute("events", eventRepository.findAll());
         return "calendar/calendar";
     }
 
-    @GetMapping("/calendar/{year}/{month}/{day}")
+    @GetMapping("/{year}/{month}/{day}")
     public String getDay(@PathVariable int year, @PathVariable int month, @PathVariable int day, Model model){
         model.addAttribute("year", year);
         model.addAttribute("month", month);
@@ -38,7 +40,7 @@ public class CalendarController {
         return "calendar/day";
     }
 
-    @GetMapping("/calendar/{year}/{month}/{day}/add-event")
+    @GetMapping("/{year}/{month}/{day}/add-event")
     public String showAddEvent(@PathVariable int year, @PathVariable int month, @PathVariable int day, Model model){
         model.addAttribute("dogs",dogRepository.findAll());
         model.addAttribute("day", day);
@@ -48,13 +50,13 @@ public class CalendarController {
         return "calendar/add-event";
     }
 
-    @PostMapping("/calendar/add-event")
+    @PostMapping("/add-event")
     public String addEvent(@Valid Event event, Model model){
         eventRepository.save(event);
         return "redirect:/calendar/" + event.getEvent_year() + "/" + event.getEvent_month() + "/" + event.getEvent_day();
     }
 
-    @GetMapping("/calendar/update-event/{id}")
+    @GetMapping("/update-event/{id}")
     public String showUpdateEventWindow(@PathVariable long id, Model model){
         Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Owner Id:" + id));
         model.addAttribute("event",event);
@@ -62,13 +64,13 @@ public class CalendarController {
         return "calendar/update-event";
     }
 
-    @PostMapping("/calendar/update-event/{id}")
+    @PostMapping("/update-event/{id}")
     public String updateEvent(@PathVariable long id, @Valid Event event, Model model){
         eventRepository.save(event);
         return "redirect:/calendar/" + event.getEvent_year() + "/" + event.getEvent_month() + "/" + event.getEvent_day();
     }
 
-    @GetMapping("/calendar/delete-event/{id}")
+    @GetMapping("/delete-event/{id}")
     public String deleteEvent(@PathVariable long id, Model model){
         Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Owner Id:" + id));
         String ret = "redirect:/calendar/" + event.getEvent_year() + "/" + event.getEvent_month() + "/" + event.getEvent_day();

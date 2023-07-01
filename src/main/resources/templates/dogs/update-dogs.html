@@ -16,7 +16,7 @@
       <li><a href="/calendar">Calendar</a></li>
     </ul>
   </header>
-  <form action="#" th:action="@{/update/{id}(id=${dogs.id})}" th:object="${dogs}" method="post">
+  <form action="#" th:action="@{/dogs/update/{id}(id=${dogs.id})}" th:object="${dogs}" method="post">
     <div class="field">
       <label for="name">Name</label>
       <div class="input-field">

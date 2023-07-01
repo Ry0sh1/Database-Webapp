@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
+@RequestMapping("/dogs")
 public class DogController {
 
     private final DogRepository dogRepository;
@@ -23,7 +24,7 @@ public class DogController {
         this.ownerRepository = ownerRepository;
     }
 
-    @GetMapping("/dogs")
+    @GetMapping
     public String showDogs(Model model){
         model.addAttribute("dogs", dogRepository.findAll());
         Set<String> t = new HashSet<>(dogRepository.getBreed());
@@ -78,7 +79,7 @@ public class DogController {
         return showDogs(model);
     }
 
-    @GetMapping("/dogs/filter/breed/{breed}")
+    @GetMapping("/filter/breed/{breed}")
     public String getFilteredByBreed(Model model, @PathVariable String breed){
         model.addAttribute("dogs", dogRepository.findAllByBreed(breed));
         Set<String> t = new HashSet<>(dogRepository.getBreed());
@@ -87,7 +88,7 @@ public class DogController {
         return "dogs/dogs";
     }
 
-    @GetMapping("/dogs/filter/owner/{owner}")
+    @GetMapping("/filter/owner/{owner}")
     public String getFilteredByOwner(Model model, @PathVariable Owner owner){
         model.addAttribute("dogs", dogRepository.findAllByOwner(owner));
         Set<String> t = new HashSet<>(dogRepository.getBreed());
