@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/mail")
@@ -28,21 +29,27 @@ public class MailController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping
+    @GetMapping("/send")
     public String createMail(Model model){
         model.addAttribute("mail", new Mail());
         model.addAttribute("user", userRepository.findAll());
         return "mail";
     }
 
-    @PostMapping
+    @PostMapping("/send")
     public String sendMail(Mail mail, Principal principal){
         mail.setAuthor(userRepository.findByUsername(principal.getName())
                 .orElseThrow(()->new UsernameNotFoundException("User Not Found")));
-        mail.setTitle(passwordEncoder.encode(mail.getTitle()));
-        mail.setContent(passwordEncoder.encode(mail.getContent()));
         mailRepository.save(mail);
         return "redirect:/index";
+    }
+
+    @GetMapping("/inbox")
+    public String showInbox(Model model, Principal principal){
+        List<Mail> mailList = mailRepository.findAllByRecipient(userRepository.findByUsername(principal.getName())
+                .orElseThrow(()->new UsernameNotFoundException("User Not Found")));
+        model.addAttribute("mailList", mailList);
+        return "mail-inbox";
     }
 
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inbox</title>
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/header.css">
+  <link rel="stylesheet" href="/table.css">
+</head>
+<body>
+<header class="header">
+  <ul class="header-content">
+    <li><a href="/home">Home</a></li>
+    <li><a href="/dogs">Dogs</a></li>
+    <li><a href="/owner">Owner</a></li>
+    <li><a href="/calendar">Calendar</a></li>
+    <li><a href="/mail/inbox">Inbox</a></li>
+    <li><a href="/logout">Logout</a></li>
+  </ul>
+</header>
+<h1>Inbox</h1>
+<a href="/mail/send">Send a Mail</a>
+<table>
+  <thead>
+  <tr>
+    <th>Author</th>
+    <th>Title</th>
+    <th>Content</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="mail : ${mailList}">
+    <td th:text="*{mail.author.getUsername()}"></td>
+    <td th:text="*{mail.title}"></td>
+    <td th:text="*{mail.content}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

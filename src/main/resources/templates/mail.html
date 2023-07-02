@@ -14,9 +14,11 @@
     <li><a href="/dogs">Dogs</a></li>
     <li><a href="/owner">Owner</a></li>
     <li><a href="/calendar">Calendar</a></li>
+    <li><a href="/mail/inbox">Inbox</a></li>
+    <li><a href="/logout">Logout</a></li>
   </ul>
 </header>
-<form action="#" th:action="@{/mail}" th:object="${mail}" method="post">
+<form action="#" th:action="@{/mail/send}" th:object="${mail}" method="post">
   <div th:switch="${#lists.size(user)}">
     <p th:case="'0'">Something is wrong here. That couldn't happen</p>
     <div th:case="*" class="center">
