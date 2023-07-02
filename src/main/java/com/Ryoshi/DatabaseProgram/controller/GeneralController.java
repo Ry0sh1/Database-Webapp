@@ -15,5 +15,9 @@ public class GeneralController {
     public String showHome(Model model){
         return "index";
     }
+    @GetMapping("/error")
+    public String showError(){
+        return "error";
+    }
 
 }

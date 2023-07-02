@@ -4,6 +4,7 @@ import com.Ryoshi.DatabaseProgram.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,10 +18,9 @@ public class UserToUserDetails implements UserDetails {
     private final String password;
     private final List<GrantedAuthority> authorities;
 
-    public UserToUserDetails(User user) {
-
+    public UserToUserDetails(User user, PasswordEncoder passwordEncoder) {
         username = user.getUsername();
-        password = user.getPassword();
+        password = passwordEncoder.encode(user.getPassword());
         //My authorities will be in this pattern: "Admin","Role",...
         authorities = Arrays
                 .stream(
