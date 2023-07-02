@@ -11,3 +11,5 @@ public class DatabaseProgramApplication {
 	}
 
 }
+
+//Encrypting noch einmal angucken!!!! User wird mit nicht encrypten Passwort in die Datenbank gespeichert

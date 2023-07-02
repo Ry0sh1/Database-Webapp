@@ -38,18 +38,18 @@
         <span class="error" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
       </div>
     </div>
-      <div th:switch="${#lists.size(owner)}">
-        <p th:case="'0'">No Owners yet!<a href="/owner/new-owner"> Add One here</a></p>
-        <div th:case="*" class="center">
-          <div class="field">
-            <label for="owner">Owner</label>
-            <select id="owner" th:field="*{owner}" required>
-              <option th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
-            </select>
-          </div>
-          <input class="submit" style="margin-top: 40px" type="submit" value="Add Dog">
+    <div th:switch="${#lists.size(owner)}">
+      <p th:case="'0'">No Owners yet!<a href="/owner/new-owner"> Add One here</a></p>
+      <div th:case="*" class="center">
+        <div class="field">
+          <label for="owner">Owner</label>
+          <select id="owner" th:field="*{owner}" required>
+            <option th:each="owner : ${owner}" th:text="${owner.first_name}" th:value="${owner.id}"></option>
+          </select>
         </div>
+        <input class="submit" style="margin-top: 40px" type="submit" value="Add Dog">
       </div>
+    </div>
   </form>
 </body>
 </html>

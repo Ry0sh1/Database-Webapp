@@ -18,9 +18,9 @@ public class UserToUserDetails implements UserDetails {
     private final String password;
     private final List<GrantedAuthority> authorities;
 
-    public UserToUserDetails(User user, PasswordEncoder passwordEncoder) {
+    public UserToUserDetails(User user) {
         username = user.getUsername();
-        password = passwordEncoder.encode(user.getPassword());
+        password = user.getPassword();
         //My authorities will be in this pattern: "Admin","Role",...
         authorities = Arrays
                 .stream(

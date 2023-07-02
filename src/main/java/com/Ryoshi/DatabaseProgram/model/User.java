@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -14,10 +16,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
-    String username;
-    String password;
-    String email;
-    String authorities;
+    private long id;
+    private String username;
+    private String password;
+    private String email;
+    private String authorities;
+    @OneToOne
+    private Owner owner;
 
 }

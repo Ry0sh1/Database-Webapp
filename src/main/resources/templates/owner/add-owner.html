@@ -52,6 +52,17 @@
       <input class="input" id="number" placeholder="Number" th:field="*{number}" type="text" required>
       <span class="error" th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></span>
     </div>
+    <div th:switch="${#lists.size(user)}">
+      <p th:case="'0'">Something is wrong here. That couldn't happen</p>
+      <div th:case="*" class="center">
+        <div class="field">
+          <label for="user">User</label>
+          <select id="user" th:field="*{user}" required>
+            <option th:each="user : ${user}" th:text="${user.username}" th:value="${user.id}"></option>
+          </select>
+        </div>
+      </div>
+    </div>
     <input class="submit" type="submit">
   </form>
 </body>

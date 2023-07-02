@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS owner
     district   TEXT,
     postalCode int,
     number     TEXT,
+    user_id BIGINT,
     primary key (id)
 );
 CREATE TABLE IF NOT EXISTS dogs
@@ -39,8 +40,11 @@ CREATE TABLE IF NOT EXISTS _user(
     password TEXT,
     email TEXT,
     authorities TEXT,
+    owner_id BIGINT,
     PRIMARY KEY (id)
 );
 
+ALTER TABLE _user ADD FOREIGN KEY (owner_id) REFERENCES owner(id);
+ALTER TABLE owner ADD FOREIGN KEY (user_id) REFERENCES _user(id);
 ALTER TABLE dogs ADD FOREIGN KEY (owner_id) REFERENCES owner(id);
 ALTER TABLE event ADD FOREIGN KEY (dog_id) REFERENCES dogs(id);

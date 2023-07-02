@@ -3,6 +3,7 @@ package com.Ryoshi.DatabaseProgram.controller;
 import com.Ryoshi.DatabaseProgram.model.Owner;
 import com.Ryoshi.DatabaseProgram.repository.DogRepository;
 import com.Ryoshi.DatabaseProgram.repository.OwnerRepository;
+import com.Ryoshi.DatabaseProgram.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,13 @@ public class OwnerController {
 
     private final OwnerRepository ownerRepository;
     private final DogRepository dogRepository;
+    private final UserRepository userRepository;
 
-    public OwnerController(OwnerRepository ownerRepository, DogRepository dogRepository, DogRepository dogRepository1) {
+    public OwnerController(OwnerRepository ownerRepository, DogRepository dogRepository, DogRepository dogRepository1,
+                           UserRepository userRepository) {
         this.ownerRepository = ownerRepository;
         this.dogRepository = dogRepository1;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -34,6 +38,7 @@ public class OwnerController {
 
     @GetMapping("/new-owner")
     public String newOwner(Owner owner, Model model){
+        model.addAttribute("user", userRepository.findAll());
         model.addAttribute("owner", new Owner());
         return "owner/add-owner";
     }
@@ -43,6 +48,7 @@ public class OwnerController {
         if(result.hasErrors()){
             return "owner/add-owner";
         }
+        owner.getUser().setOwner(owner);
         ownerRepository.save(owner);
         return "redirect:/owner";
     }
