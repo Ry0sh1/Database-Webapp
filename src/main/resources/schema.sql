@@ -43,8 +43,18 @@ CREATE TABLE IF NOT EXISTS _user(
     owner_id BIGINT,
     PRIMARY KEY (id)
 );
+CREATE TABLE IF NOT EXISTS mail(
+    id BIGINT AUTO_INCREMENT,
+    author BIGINT,
+    recipient BIGINT,
+    title TEXT,
+    content TEXT,
+    primary key (id)
+);
 
 ALTER TABLE _user ADD FOREIGN KEY (owner_id) REFERENCES owner(id);
 ALTER TABLE owner ADD FOREIGN KEY (user_id) REFERENCES _user(id);
 ALTER TABLE dogs ADD FOREIGN KEY (owner_id) REFERENCES owner(id);
 ALTER TABLE event ADD FOREIGN KEY (dog_id) REFERENCES dogs(id);
+ALTER TABLE mail ADD FOREIGN KEY (author) REFERENCES _user(id);
+ALTER TABLE mail ADD FOREIGN KEY (recipient) REFERENCES _user(id);

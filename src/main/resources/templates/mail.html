@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mail</title>
+  <link rel="stylesheet" href="/addWindow.css">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/header.css">
+</head>
+<body>
+<header class="header">
+  <ul class="header-content">
+    <li><a href="/home">Home</a></li>
+    <li><a href="/dogs">Dogs</a></li>
+    <li><a href="/owner">Owner</a></li>
+    <li><a href="/calendar">Calendar</a></li>
+  </ul>
+</header>
+<form action="#" th:action="@{/mail}" th:object="${mail}" method="post">
+  <div th:switch="${#lists.size(user)}">
+    <p th:case="'0'">Something is wrong here. That couldn't happen</p>
+    <div th:case="*" class="center">
+      <div class="field">
+        <label for="user">User</label>
+        <select id="user" th:field="*{recipient}" required>
+          <option th:each="user : ${user}" th:text="${user.username}" th:value="${user.id}"></option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label for="title">Title:</label>
+    <input class="input" th:field="*{title}" id="title" placeholder="Title" type="text" required>
+  </div>
+  <div class="field">
+    <label for="content">Content:</label>
+    <input class="input" id="content" placeholder="Content" type="text" th:field="*{content}" required>
+  </div>
+  <input class="submit" type="submit">
+</form>
+</body>
+</html>
