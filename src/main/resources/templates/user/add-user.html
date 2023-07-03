@@ -5,8 +5,26 @@
   <title>Add User</title>
   <link rel="stylesheet" href="/addWindow.css">
   <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/header.css">
 </head>
 <body>
+<header class="header">
+  <ul class="header-content">
+    <li><a href="/home">Home</a></li>
+    <li><a href="/dogs">Dogs</a></li>
+    <li><a href="/owner">Owner</a></li>
+    <li><a href="/user">User</a></li>
+    <li><a href="/calendar">Calendar</a></li>
+    <li class="inbox-unread-container">
+      <a href="/mail/inbox">Inbox</a>
+      <div th:switch="${unreadMailCount}">
+        <div th:case="0"></div>
+        <div class="inbox-unread-count" th:case="*" th:text="*{unreadMailCount}"></div>
+      </div>
+    </li>
+    <li><a href="/logout">Logout</a></li>
+  </ul>
+</header>
 <form action="#" th:action="@{/user/add-user}" th:object="${user}" method="post">
   <div class="field">
     <label for="username">Username:</label>

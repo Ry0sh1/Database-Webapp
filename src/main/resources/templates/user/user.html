@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <link rel="stylesheet" href="/table.css">
+    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/general.css">
+</head>
+<body>
+<header class="header">
+    <ul class="header-content">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/dogs">Dogs</a></li>
+        <li><a href="/owner">Owner</a></li>
+        <li><a href="/user">User</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+        <li class="inbox-unread-container">
+            <a href="/mail/inbox">Inbox</a>
+            <div th:switch="${unreadMailCount}">
+                <div th:case="0"></div>
+                <div class="inbox-unread-count" th:case="*" th:text="*{unreadMailCount}"></div>
+            </div>
+        </li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</header>
+<div class="content">
+    <div th:switch="${#lists.size(users)}">
+        <h2 th:case="'0'">No Users yet!</h2>
+        <div th:case="*">
+            <h2>Users</h2>
+            <table class="table" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Authorities</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.authorities}"></td>
+                    <td><a>Edit</a></td>
+                    <td><a>Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a href="/user/add-user">Add User</a></p>
+    </div>
+</div>
+</body>
+</html>

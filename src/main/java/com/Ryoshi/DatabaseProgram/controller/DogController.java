@@ -3,7 +3,9 @@ package com.Ryoshi.DatabaseProgram.controller;
 import com.Ryoshi.DatabaseProgram.model.Dogs;
 import com.Ryoshi.DatabaseProgram.model.Owner;
 import com.Ryoshi.DatabaseProgram.repository.DogRepository;
+import com.Ryoshi.DatabaseProgram.repository.MailRepository;
 import com.Ryoshi.DatabaseProgram.repository.OwnerRepository;
+import com.Ryoshi.DatabaseProgram.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -20,25 +23,33 @@ public class DogController {
 
     private final DogRepository dogRepository;
     private final OwnerRepository ownerRepository;
+    private final MailRepository mailRepository;
+    private final UserRepository userRepository;
 
-    public DogController(DogRepository dogRepository, OwnerRepository ownerRepository) {
+    public DogController(DogRepository dogRepository, OwnerRepository ownerRepository, MailRepository mailRepository, UserRepository userRepository) {
         this.dogRepository = dogRepository;
         this.ownerRepository = ownerRepository;
+        this.mailRepository = mailRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
-    public String showDogs(Model model){
+    public String showDogs(Model model, Principal principal){
         model.addAttribute("dogs", dogRepository.findAll());
         Set<String> t = new HashSet<>(dogRepository.getBreed());
         model.addAttribute("breeds", t);
         model.addAttribute("owner",ownerRepository.findAll());
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "/dogs/dogs";
     }
 
     @GetMapping("/add-dogs")
-    public String showSignUpForm(Dogs dogs, Model model) {
+    public String showSignUpForm(Dogs dogs, Model model, Principal principal) {
         model.addAttribute("owner", ownerRepository.findAll());
         model.addAttribute("dogs", new Dogs());
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "dogs/add-dogs";
     }
 
@@ -52,12 +63,14 @@ public class DogController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+    public String showUpdateForm(@PathVariable("id") long id, Model model, Principal principal) {
         Dogs dogs = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Dog Id:" + id));
 
         model.addAttribute("owner", ownerRepository.findAll());
         model.addAttribute("dogs", dogs);
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "dogs/update-dogs";
     }
 
@@ -74,29 +87,34 @@ public class DogController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteDogs(@PathVariable("id") long id, Model model) {
+    public String deleteDogs(@PathVariable("id") long id, Model model, Principal principal) {
         Dogs dogs = dogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Dog Id:" + id));
         dogRepository.delete(dogs);
-        return showDogs(model);
+        return "redirect:/dogs";
     }
 
     @GetMapping("/filter/breed/{breed}")
-    public String getFilteredByBreed(Model model, @PathVariable String breed){
+    public String getFilteredByBreed(Model model, @PathVariable String breed, Principal principal){
         model.addAttribute("dogs", dogRepository.findAllByBreed(breed));
-        Set<String> t = new HashSet<>(dogRepository.getBreed());
-        model.addAttribute("breeds", t);
-        model.addAttribute("owner",ownerRepository.findAll());
+        createFilterModel(model, principal);
         return "dogs/dogs";
     }
 
     @GetMapping("/filter/owner/{owner}")
-    public String getFilteredByOwner(Model model, @PathVariable Owner owner){
+    public String getFilteredByOwner(Model model, @PathVariable Owner owner, Principal principal){
         model.addAttribute("dogs", dogRepository.findAllByOwner(owner));
+        createFilterModel(model, principal);
+        return "dogs/dogs";
+    }
+
+    private Model createFilterModel(Model model, Principal principal){
         Set<String> t = new HashSet<>(dogRepository.getBreed());
         model.addAttribute("breeds", t);
         model.addAttribute("owner",ownerRepository.findAll());
-        return "dogs/dogs";
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
+        return model;
     }
 
 }

@@ -22,19 +22,19 @@ public class MailController {
 
     private final UserRepository userRepository;
     private final MailRepository mailRepository;
-    private final PasswordEncoder passwordEncoder;
 
     public MailController(UserRepository userRepository,
                           MailRepository mailRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.mailRepository = mailRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/send")
-    public String createMail(Model model){
+    public String createMail(Model model, Principal principal){
         model.addAttribute("mail", new Mail());
         model.addAttribute("user", userRepository.findAll());
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "mail";
     }
 
@@ -53,6 +53,8 @@ public class MailController {
         List<Mail> mailList = mailRepository.findAllByRecipient(userRepository.findByUsername(principal.getName())
                 .orElseThrow(()->new UsernameNotFoundException("User Not Found")));
         model.addAttribute("mailList", mailList);
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "mail-inbox";
     }
 

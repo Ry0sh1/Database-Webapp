@@ -11,5 +11,6 @@ import java.util.List;
 public interface MailRepository extends CrudRepository<Mail, Long> {
 
     List<Mail> findAllByRecipient(User recipient);
+    int countAllByViewedAndRecipient(Boolean viewed, User recipient);
 
 }

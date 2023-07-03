@@ -3,6 +3,8 @@ package com.Ryoshi.DatabaseProgram.controller;
 import com.Ryoshi.DatabaseProgram.model.Event;
 import com.Ryoshi.DatabaseProgram.repository.DogRepository;
 import com.Ryoshi.DatabaseProgram.repository.EventRepository;
+import com.Ryoshi.DatabaseProgram.repository.MailRepository;
+import com.Ryoshi.DatabaseProgram.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/calendar")
@@ -19,34 +21,44 @@ public class CalendarController {
 
     private final EventRepository eventRepository;
     private final DogRepository dogRepository;
+    private final MailRepository mailRepository;
+    private final UserRepository userRepository;
 
-    public CalendarController(EventRepository eventRepository, DogRepository dogRepository){
+    public CalendarController(EventRepository eventRepository, DogRepository dogRepository, MailRepository mailRepository, UserRepository userRepository){
         this.eventRepository = eventRepository;
         this.dogRepository = dogRepository;
+        this.mailRepository = mailRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
-    public String calendar(Model model){
+    public String calendar(Model model, Principal principal){
         model.addAttribute("events", eventRepository.findAll());
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "calendar/calendar";
     }
 
     @GetMapping("/{year}/{month}/{day}")
-    public String getDay(@PathVariable int year, @PathVariable int month, @PathVariable int day, Model model){
+    public String getDay(@PathVariable int year, @PathVariable int month, @PathVariable int day, Model model, Principal principal){
         model.addAttribute("year", year);
         model.addAttribute("month", month);
         model.addAttribute("day", day);
         model.addAttribute("events", eventRepository.findAllByDate(day,month,year));
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "calendar/day";
     }
 
     @GetMapping("/{year}/{month}/{day}/add-event")
-    public String showAddEvent(@PathVariable int year, @PathVariable int month, @PathVariable int day, Model model){
+    public String showAddEvent(@PathVariable int year, @PathVariable int month, @PathVariable int day, Model model, Principal principal){
         model.addAttribute("dogs",dogRepository.findAll());
         model.addAttribute("day", day);
         model.addAttribute("month", month);
         model.addAttribute("year", year);
         model.addAttribute("event", new Event());
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "calendar/add-event";
     }
 
@@ -57,10 +69,12 @@ public class CalendarController {
     }
 
     @GetMapping("/update-event/{id}")
-    public String showUpdateEventWindow(@PathVariable long id, Model model){
+    public String showUpdateEventWindow(@PathVariable long id, Model model, Principal principal){
         Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Owner Id:" + id));
         model.addAttribute("event",event);
         model.addAttribute("dogs",dogRepository.findAll());
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "calendar/update-event";
     }
 

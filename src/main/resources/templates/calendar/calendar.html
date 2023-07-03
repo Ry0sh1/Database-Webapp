@@ -13,8 +13,15 @@
       <li><a href="/home">Home</a></li>
       <li><a href="/dogs">Dogs</a></li>
       <li><a href="/owner">Owner</a></li>
+      <li><a href="/user">User</a></li>
       <li><a href="/calendar">Calendar</a></li>
-      <li><a href="/mail/inbox">Inbox</a></li>
+      <li class="inbox-unread-container">
+        <a href="/mail/inbox">Inbox</a>
+        <div th:switch="${unreadMailCount}">
+          <div th:case="0"></div>
+          <div class="inbox-unread-count" th:case="*" th:text="*{unreadMailCount}"></div>
+        </div>
+      </li>
       <li><a href="/logout">Logout</a></li>
     </ul>
   </header>

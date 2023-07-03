@@ -2,6 +2,7 @@ package com.Ryoshi.DatabaseProgram.controller;
 
 import com.Ryoshi.DatabaseProgram.model.Owner;
 import com.Ryoshi.DatabaseProgram.repository.DogRepository;
+import com.Ryoshi.DatabaseProgram.repository.MailRepository;
 import com.Ryoshi.DatabaseProgram.repository.OwnerRepository;
 import com.Ryoshi.DatabaseProgram.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/owner")
 @PreAuthorize("hasAuthority('ADMIN')")
@@ -22,24 +25,30 @@ public class OwnerController {
     private final OwnerRepository ownerRepository;
     private final DogRepository dogRepository;
     private final UserRepository userRepository;
+    private final MailRepository mailRepository;
 
     public OwnerController(OwnerRepository ownerRepository, DogRepository dogRepository, DogRepository dogRepository1,
-                           UserRepository userRepository) {
+                           UserRepository userRepository, MailRepository mailRepository) {
         this.ownerRepository = ownerRepository;
         this.dogRepository = dogRepository1;
         this.userRepository = userRepository;
+        this.mailRepository = mailRepository;
     }
 
     @GetMapping
-    public String showOwner(Model model){
+    public String showOwner(Model model, Principal principal){
         model.addAttribute("owner", ownerRepository.findAll());
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "owner/owner";
     }
 
     @GetMapping("/new-owner")
-    public String newOwner(Owner owner, Model model){
+    public String newOwner(Owner owner, Model model, Principal principal){
         model.addAttribute("user", userRepository.findAll());
         model.addAttribute("owner", new Owner());
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "owner/add-owner";
     }
 
@@ -54,10 +63,12 @@ public class OwnerController {
     }
 
     @GetMapping("/update-owner/{id}")
-    public String ownerById(@PathVariable long id, Model model){
+    public String ownerById(@PathVariable long id, Model model, Principal principal){
         Owner owner = ownerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Owner Id:" + id));
         model.addAttribute("owner", owner);
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "owner/update-owner";
     }
 
@@ -72,9 +83,11 @@ public class OwnerController {
     }
 
     @GetMapping("/delete-owner/{id}")
-    public String deleteOwner(@PathVariable long id, Model model){
+    public String deleteOwner(@PathVariable long id, Model model, Principal principal){
         dogRepository.deleteAllByOwnerId(id);
         ownerRepository.deleteById(id);
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
+                .orElseThrow()));
         return "redirect:/owner";
     }
 

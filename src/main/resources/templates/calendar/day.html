@@ -9,16 +9,23 @@
     <link rel="stylesheet" href="/table.css">
   </head>
   <body>
-    <header class="header">
-      <ul class="header-content">
-        <li><a href="/home">Home</a></li>
-        <li><a href="/dogs">Dogs</a></li>
-        <li><a href="/owner">Owner</a></li>
-        <li><a href="/calendar">Calendar</a></li>
-        <li><a href="/mail/inbox">Inbox</a></li>
-        <li><a href="/logout">Logout</a></li>
-      </ul>
-    </header>
+  <header class="header">
+    <ul class="header-content">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/dogs">Dogs</a></li>
+      <li><a href="/owner">Owner</a></li>
+      <li><a href="/user">User</a></li>
+      <li><a href="/calendar">Calendar</a></li>
+      <li class="inbox-unread-container">
+        <a href="/mail/inbox">Inbox</a>
+        <div th:switch="${unreadMailCount}">
+          <div th:case="0"></div>
+          <div class="inbox-unread-count" th:case="*" th:text="*{unreadMailCount}"></div>
+        </div>
+      </li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </header>
     <div class="date">
       <p class="no-padding" id="day" th:text="${day}"></p><p class="space no-padding">. </p>
       <p class="no-padding" id="month" th:text="${month}"></p>
