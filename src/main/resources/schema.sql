@@ -49,6 +49,8 @@ CREATE TABLE IF NOT EXISTS mail(
     recipient BIGINT,
     title TEXT,
     content TEXT,
+    viewed BOOLEAN,
+    received TIMESTAMP,
     primary key (id)
 );
 

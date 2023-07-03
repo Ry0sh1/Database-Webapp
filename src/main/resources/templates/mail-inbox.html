@@ -5,7 +5,7 @@
   <title>Inbox</title>
   <link rel="stylesheet" href="/general.css">
   <link rel="stylesheet" href="/header.css">
-  <link rel="stylesheet" href="/table.css">
+  <link rel="stylesheet" href="/mail/inbox.css">
 </head>
 <body>
 <header class="header">
@@ -22,18 +22,22 @@
 <a href="/mail/send">Send a Mail</a>
 <table>
   <thead>
-  <tr>
-    <th>Author</th>
-    <th>Title</th>
-    <th>Content</th>
-  </tr>
+    <tr>
+      <th>Author</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Time Received</th>
+    </tr>
   </thead>
   <tbody>
-  <tr th:each="mail : ${mailList}">
-    <td th:text="*{mail.author.getUsername()}"></td>
-    <td th:text="*{mail.title}"></td>
-    <td th:text="*{mail.content}"></td>
-  </tr>
+    <tr th:each="mail : ${mailList}">
+      <td th:text="*{mail.author.getUsername()}"></td>
+      <td th:text="*{mail.title}"></td>
+      <td th:text="*{mail.content}"></td>
+      <td th:text="*{mail.received}"></td>
+      <td th:text="*{mail.viewed}"></td>
+      <td><a th:href="@{/mail/inbox/read/{id}(id=${mail.id})}">Change Status</a></td>
+    </tr>
   </tbody>
 </table>
 </body>
