@@ -2,6 +2,7 @@ package com.Ryoshi.DatabaseProgram.controller;
 
 import com.Ryoshi.DatabaseProgram.repository.MailRepository;
 import com.Ryoshi.DatabaseProgram.repository.UserRepository;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,13 @@ public class GeneralController {
         this.mailRepository = mailRepository;
         this.userRepository = userRepository;
     }
-
+    @GetMapping("")
+    public String show(){
+        return "redirect:/home";
+    }
     @GetMapping("/index")
-    public String showLogIn(Model model, Principal principal){
-        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
-                .orElseThrow()));
-        return "index";
+    public String showLogIn(){
+        return "redirect:/";
     }
     @GetMapping("/home")
     public String showHome(Model model, Principal principal){

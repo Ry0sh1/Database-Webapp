@@ -4,6 +4,7 @@ package com.Ryoshi.DatabaseProgram.controller;
 import com.Ryoshi.DatabaseProgram.model.User;
 import com.Ryoshi.DatabaseProgram.repository.MailRepository;
 import com.Ryoshi.DatabaseProgram.repository.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +28,9 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String showUser(Model model, Principal principal){
-        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(true,userRepository.findByUsername(principal.getName())
+        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
                 .orElseThrow()));
         model.addAttribute("users",userRepository.findAll());
         return "/user/user";
@@ -42,9 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/add-user")
-    public String showAddUser(Model model, Principal principal){
-        model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
-                .orElseThrow()));
+    public String showAddUser(Model model){
         model.addAttribute("user", new User());
         return "/user/add-user";
     }

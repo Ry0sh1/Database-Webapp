@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 import java.util.Optional;
 
@@ -32,18 +33,23 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
+        requestCache.setMatchingRequestParameterName(null);
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth-> {
                     auth.requestMatchers(HttpMethod.POST, "/user/**").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/user/**").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/h2-console/**").permitAll();
-                    auth.requestMatchers("/general.css","/addWindow.css","/error").permitAll();
+                    auth.requestMatchers("/css/**", "/js/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
+                .requestCache((cache) -> cache
+                        .requestCache(requestCache)
+                )
                 .formLogin(Customizer.withDefaults())
-                .headers().frameOptions().sameOrigin()      //Just for H2-Console Important to delete when published
-                .and()
+/*                .headers().frameOptions().sameOrigin()      //Just for H2-Console Important to delete when published
+                .and()*/
                 .build();
     }
 
