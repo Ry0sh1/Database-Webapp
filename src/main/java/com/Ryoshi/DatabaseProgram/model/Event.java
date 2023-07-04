@@ -17,6 +17,8 @@ public class Event {
     @Id
     @GeneratedValue
     private long id;
+    @ManyToOne
+    private User author;
     private int event_day;
     private int event_month;
     private int event_year;

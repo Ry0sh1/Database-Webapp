@@ -52,8 +52,8 @@
               <td th:text="${event.content}"></td>
               <td th:text="${event.starting}"></td>
               <td th:text="${event.ending}"></td>
-              <td th:case="*" th:text="${event.dog.name}"></td>
               <td th:case="null">N/A</td>
+              <td th:case="*" th:text="${event.getDog().getName()}"></td>
               <td><a th:href="@{/calendar/update-event/{id}(id=${event.id})}">Edit</a></td>
               <td><a th:href="@{/calendar/delete-event/{id}(id=${event.id})}">Delete</a></td>
             </tr>

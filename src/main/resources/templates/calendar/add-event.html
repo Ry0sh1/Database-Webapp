@@ -62,7 +62,7 @@
       </div>
     </div>
     <div th:switch="${#lists.size(dogs)}">
-      <p th:case="'0'">No Dogs yet!<a href="/add-dogs"> Add One here</a></p>
+      <p th:case="'0'">There are no dogs assigned to you!</p>
       <div class="field" th:case="*" >
         <label for="dogs">Dogs</label>
         <select id="dogs" th:field="*{dog}" required>

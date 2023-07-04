@@ -1,11 +1,9 @@
 package com.Ryoshi.DatabaseProgram.controller;
 
 import com.Ryoshi.DatabaseProgram.model.Event;
-import com.Ryoshi.DatabaseProgram.repository.DogRepository;
-import com.Ryoshi.DatabaseProgram.repository.EventRepository;
-import com.Ryoshi.DatabaseProgram.repository.MailRepository;
-import com.Ryoshi.DatabaseProgram.repository.UserRepository;
+import com.Ryoshi.DatabaseProgram.repository.*;
 import jakarta.validation.Valid;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,17 +21,21 @@ public class CalendarController {
     private final DogRepository dogRepository;
     private final MailRepository mailRepository;
     private final UserRepository userRepository;
+    private final OwnerRepository ownerRepository;
 
-    public CalendarController(EventRepository eventRepository, DogRepository dogRepository, MailRepository mailRepository, UserRepository userRepository){
+    public CalendarController(EventRepository eventRepository, DogRepository dogRepository, MailRepository mailRepository, UserRepository userRepository,
+                              OwnerRepository ownerRepository){
         this.eventRepository = eventRepository;
         this.dogRepository = dogRepository;
         this.mailRepository = mailRepository;
         this.userRepository = userRepository;
+        this.ownerRepository = ownerRepository;
     }
 
     @GetMapping
     public String calendar(Model model, Principal principal){
-        model.addAttribute("events", eventRepository.findAll());
+        model.addAttribute("events", eventRepository.findAllByAuthor(userRepository.findByUsername(principal.getName())
+                .orElseThrow(()->new UsernameNotFoundException("Not logged in"))));
         model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
                 .orElseThrow()));
         return "calendar/calendar";
@@ -44,7 +46,8 @@ public class CalendarController {
         model.addAttribute("year", year);
         model.addAttribute("month", month);
         model.addAttribute("day", day);
-        model.addAttribute("events", eventRepository.findAllByDate(day,month,year));
+        model.addAttribute("events", eventRepository.findAllByDate(day,month,year, userRepository.findByUsername(principal.getName())
+                .orElseThrow(()->new UsernameNotFoundException("Not logged in"))));
         model.addAttribute("unreadMailCount", mailRepository.countAllByViewedAndRecipient(false,userRepository.findByUsername(principal.getName())
                 .orElseThrow()));
         return "calendar/day";
@@ -52,7 +55,8 @@ public class CalendarController {
 
     @GetMapping("/{year}/{month}/{day}/add-event")
     public String showAddEvent(@PathVariable int year, @PathVariable int month, @PathVariable int day, Model model, Principal principal){
-        model.addAttribute("dogs",dogRepository.findAll());
+        model.addAttribute("dogs", dogRepository.findAllByOwner(ownerRepository.findByUser(userRepository.findByUsername(principal.getName())
+                .orElseThrow(()-> new UsernameNotFoundException("Not logged in")))));
         model.addAttribute("day", day);
         model.addAttribute("month", month);
         model.addAttribute("year", year);
@@ -63,7 +67,8 @@ public class CalendarController {
     }
 
     @PostMapping("/add-event")
-    public String addEvent(@Valid Event event, Model model){
+    public String addEvent(@Valid Event event, Model model, Principal principal){
+        event.setAuthor(userRepository.findByUsername(principal.getName()).orElseThrow(()->new UsernameNotFoundException("Not logged in")));
         eventRepository.save(event);
         return "redirect:/calendar/" + event.getEvent_year() + "/" + event.getEvent_month() + "/" + event.getEvent_day();
     }

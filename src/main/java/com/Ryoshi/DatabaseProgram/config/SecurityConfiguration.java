@@ -48,8 +48,8 @@ public class SecurityConfiguration {
                         .requestCache(requestCache)
                 )
                 .formLogin(Customizer.withDefaults())
-/*                .headers().frameOptions().sameOrigin()      //Just for H2-Console Important to delete when published
-                .and()*/
+                .headers().frameOptions().sameOrigin()      //Just for H2-Console Important to delete when published
+                .and()
                 .build();
     }
 
